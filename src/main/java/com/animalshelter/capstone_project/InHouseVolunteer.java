@@ -10,4 +10,6 @@ public class InHouseVolunteer extends Volunteer implements Serializable {
     private String mTimeSlot;
     private String mDate;
 
+
+
 }
