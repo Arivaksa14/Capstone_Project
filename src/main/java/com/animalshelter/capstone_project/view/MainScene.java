@@ -58,6 +58,7 @@ public class MainScene extends Scene {
         pane.add(volunteerButton, 0, 7);
         pane.add(adoptButton, 1, 9);
         pane.add(donateButton, 2, 9);
+        this.setRoot(pane);
 
    }
 
