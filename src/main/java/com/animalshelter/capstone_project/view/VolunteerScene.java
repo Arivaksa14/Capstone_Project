@@ -1,6 +1,6 @@
-package com.animalshelter.capstone_project.View;
+package com.animalshelter.capstone_project.view;
 
-import com.animalshelter.capstone_project.Model.Volunteer;
+import com.animalshelter.capstone_project.model.Volunteer;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

@@ -1,9 +1,6 @@
-package com.animalshelter.capstone_project.View;
+package com.animalshelter.capstone_project.view;
 
-import com.animalshelter.capstone_project.Controller.Controller;
 import javafx.application.Application;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -46,6 +43,5 @@ public class View extends Application {
         Application.launch(args);
 
     }
-
 }
 

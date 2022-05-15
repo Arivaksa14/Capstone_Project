@@ -1,6 +1,5 @@
-package com.animalshelter.capstone_project.View;
+package com.animalshelter.capstone_project.view;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 
 /**
  * The <code>MainScene</code> represents the very first scene for the Nobel Peace Prize application.
@@ -40,7 +38,7 @@ public class MainScene extends Scene {
         pane.setPadding(new Insets(5));
 
         // TODO: Uncomment after configuring res folder
-        mainAppImage.setImage(new Image("adoptapet.png"));
+        mainAppImage.setImage(new Image("adoptapet.jpg"));
         mainAppImage.setFitWidth(WIDTH);
         pane.add(mainAppImage, 0, 0, 3, 1);
 
@@ -56,6 +54,10 @@ public class MainScene extends Scene {
         volunteerButton.setOnAction(e -> ViewNavigator.loadScene("Welcome Volunteer!", new VolunteerScene()));
         adoptButton.setOnAction(e -> ViewNavigator.loadScene("Adopt A Pet!", new AnimalScene()));
         //donateButton.setOnAction(e -> ViewNavigator.loadScene("Thank you for your donation!", new donationScene()));
+
+        pane.add(volunteerButton, 0, 7);
+        pane.add(adoptButton, 1, 9);
+        pane.add(donateButton, 2, 9);
 
    }
 
