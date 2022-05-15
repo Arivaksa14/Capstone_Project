@@ -1,16 +1,12 @@
-package com.animalshelter.capstone_project;
+package com.animalshelter.capstone_project.View;
 
-import javafx.application.Application;
+import com.animalshelter.capstone_project.Model.Volunteer;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-
-import java.util.List;
-import java.util.Locale;
 
 public class VolunteerScene extends Scene {
 /*
@@ -68,7 +64,7 @@ public class VolunteerScene extends Scene {
         volunteerTypeComboBox.getItems().addAll("Foster", "In House Volunteer");
         volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> changeVolunteerType(newVal));
 
-        animalTypeCB.getItems().addAll("Dogs", "Cats", "Small Animal"); // hamsters, bunnies,
+        animalTypeCB.getItems().addAll("Dogs", "Cats", "Small Animal"); // hamsters, bunnies, parrots
 
 
 

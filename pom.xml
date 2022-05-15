@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.animalshelter.capstone_project/com.animalshelter.capstone_project.HelloApplication
+                                com.animalshelter.capstone_project/com.animalshelter.capstone_project.View.MainScene
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
