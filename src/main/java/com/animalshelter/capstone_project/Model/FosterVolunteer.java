@@ -1,4 +1,4 @@
-package com.animalshelter.capstone_project;
+package com.animalshelter.capstone_project.Model;
 
 import java.io.Serializable;
 
