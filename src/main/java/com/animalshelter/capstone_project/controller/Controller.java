@@ -1,4 +1,4 @@
-package com.animalshelter.capstone_project.Controller;
+package com.animalshelter.capstone_project.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

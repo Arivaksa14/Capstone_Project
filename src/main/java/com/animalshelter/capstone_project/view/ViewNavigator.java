@@ -1,4 +1,4 @@
-package com.animalshelter.capstone_project.View;
+package com.animalshelter.capstone_project.view;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
