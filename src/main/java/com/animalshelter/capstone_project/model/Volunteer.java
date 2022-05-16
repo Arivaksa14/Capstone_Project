@@ -6,7 +6,17 @@ public class Volunteer implements Serializable {
 
     protected String mName;
     protected int mAge;
-    protected boolean mCovidVaxxed;
     protected String mReason;
+    private String mAnimalType;
+
+    public Volunteer(String name, int age, String reason, String animalType) {
+        mName = name;
+        mAge = age;
+        mReason = reason;
+        mAnimalType = animalType;
+    }
+
+
+
 
 }
