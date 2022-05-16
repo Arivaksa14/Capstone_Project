@@ -51,7 +51,7 @@ public class MainScene extends Scene {
         pane.setVgap(5);
         pane.setAlignment(Pos.CENTER);
 
-        volunteerButton.setOnAction(e -> ViewNavigator.loadScene("Welcome Volunteer!", new VolunteerScene()));
+        volunteerButton.setOnAction(e -> ViewNavigator.loadScene("Volunteer Repository", new VolunteerScene()));
         adoptButton.setOnAction(e -> ViewNavigator.loadScene("Adopt A Pet!", new AnimalScene()));
         //donateButton.setOnAction(e -> ViewNavigator.loadScene("Thank you for your donation!", new donationScene()));
 

@@ -2,7 +2,7 @@ package com.animalshelter.capstone_project.model;
 
 import java.io.Serializable;
 
-public abstract class Volunteer implements Serializable {
+public class Volunteer implements Serializable {
 
     protected String mName;
     protected int mAge;
