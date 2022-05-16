@@ -268,21 +268,21 @@ public class AnimalScene extends Scene {
         if(animalType.equals("Dog")) {
         String spayedOrNeutered = spayedOrNeuteredCB.getSelectionModel().getSelectedItem();
         String trained = trainedCB.getSelectionModel().getSelectedItem();
-        applicantList.add(0, new Dog(applicantName, householdSize, animalType, petGender, petAgeCat,goodWithOtherAnimals, active, healthIssues, reason, spayedOrNeutered, trained));
+        applicantList.add(0, new Dog(applicantName, animalType, householdSize, petGender, petAgeCat,goodWithOtherAnimals, active, healthIssues, reason, spayedOrNeutered, trained));
         }
 
         //Cat
         else if(animalType.equals("Cat")) {
         String indoorOrOutdoor = indoorOrOutdoorTF.getText();
         String declawed = declawedCB.getSelectionModel().getSelectedItem();
-        applicantList.add(0, new Cat(applicantName, householdSize, animalType, petGender, petAgeCat,goodWithOtherAnimals, active, healthIssues, reason, indoorOrOutdoor, declawed));
+        applicantList.add(0, new Cat(applicantName, animalType, householdSize, petGender, petAgeCat,goodWithOtherAnimals, active, healthIssues, reason, indoorOrOutdoor, declawed));
         }
 
         //Small Animal
         else{
         String messy = messyCB.getSelectionModel().getSelectedItem();
         int lifespan = Integer.parseInt(lifespanTF.getText());
-        applicantList.add(0, new SmallAnimal(applicantName, householdSize, animalType, petGender, petAgeCat,goodWithOtherAnimals, active, healthIssues, reason, messy, lifespan));
+        applicantList.add(0, new SmallAnimal(applicantName, animalType, householdSize, petGender, petAgeCat,goodWithOtherAnimals, active, healthIssues, reason, messy, lifespan));
         }
 
         // Now update the list view with a new applicant
