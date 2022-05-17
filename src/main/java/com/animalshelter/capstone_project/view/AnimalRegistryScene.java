@@ -1,5 +1,6 @@
 package com.animalshelter.capstone_project.view;
 
+import com.animalshelter.capstone_project.controller.Controller;
 import com.animalshelter.capstone_project.model.Animal;
 import com.animalshelter.capstone_project.model.CatDog;
 import javafx.collections.ObservableList;
@@ -54,7 +55,7 @@ public class AnimalRegistryScene extends Scene {
     private Label activeErrLabel = new Label("This Field is required.");
 
     //TODO: complete once controller is set up with rest of class
-    //private Controller controller = Controller.getInstance();
+    private Controller controller = Controller.getInstance();
 
     public AnimalRegistryScene(){
         super(new GridPane(), WIDTH, HEIGHT);
@@ -143,7 +144,7 @@ public class AnimalRegistryScene extends Scene {
         pane.add(returnButton, 2, 19);
         returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
 
-        // animalList = controller.getAllAnimals();
+        animalList = controller.getAllAnimals();
         animalListView.setItems(animalList);
 
         //Wire up an event for the animalLV

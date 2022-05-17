@@ -1,5 +1,6 @@
 package com.animalshelter.capstone_project.view;
 
+import com.animalshelter.capstone_project.controller.Controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -31,7 +32,7 @@ public class View extends Application {
     @Override
     public void stop() throws Exception {
         // TODO: Uncomment when finished with Controller.java
-       // Controller.getInstance().saveData();
+       Controller.getInstance().saveData();
     }
 
     /**
