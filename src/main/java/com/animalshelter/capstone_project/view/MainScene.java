@@ -18,10 +18,9 @@ public class MainScene extends Scene {
     public static final double WIDTH = 1000;
     public static final double HEIGHT = 600;
 
-    //Can have ImageView, ComboBox<String>, TextField, Label, ListView(for display data), Button,
     private ImageView mainAppImage = new ImageView();
     private Button volunteerButton = new Button("Volunteer");
-    private Button adoptButton = new Button("Adopt A Pet");
+    private Button adoptButton = new Button("New Pet");
     private Button inventoryButton = new Button("Manage Inventory");
 
     /**
@@ -53,7 +52,7 @@ public class MainScene extends Scene {
         pane.setAlignment(Pos.CENTER);
 
         volunteerButton.setOnAction(e -> ViewNavigator.loadScene("Welcome Volunteer!", new VolunteerScene()));
-        adoptButton.setOnAction(e -> ViewNavigator.loadScene("Adopt A Pet!", new AnimalScene()));
+        adoptButton.setOnAction(e -> ViewNavigator.loadScene("New Pet", new NewAnimalScene()));
         inventoryButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", new InventoryScene()));
 
         pane.add(volunteerButton, 0, 6);
