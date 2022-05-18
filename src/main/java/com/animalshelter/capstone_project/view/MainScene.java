@@ -30,34 +30,25 @@ public class MainScene extends Scene {
         super(new GridPane(), WIDTH, HEIGHT);
 
         GridPane pane = new GridPane();
-        pane.setHgap(10.0);
+        pane.setAlignment(Pos.CENTER);
+        pane.setHgap(5);
         pane.setVgap(5);
-        pane.setPadding(new Insets(5));
 
-        // TODO: Uncomment after configuring res folder
         mainAppImage.setImage(new Image("adoptapet.jpg"));
-        //ZC: image size: 1373 x 447
-        //ZC: below set image height is calculated to lock the ratio.
         mainAppImage.setFitWidth(WIDTH);
         mainAppImage.setFitHeight(WIDTH/1373*447);
         pane.add(mainAppImage, 0, 0, 3, 1);
-
-        HBox hBox = new HBox(volunteerButton, adoptButton, inventoryButton);
-        hBox.setSpacing(5);
-        hBox.setAlignment(Pos.BASELINE_RIGHT);
-        pane.add(hBox,1,4);
-
-        pane.setHgap(5);
-        pane.setVgap(5);
-        pane.setAlignment(Pos.CENTER);
 
         volunteerButton.setOnAction(e -> ViewNavigator.loadScene("Welcome Volunteer!", new VolunteerScene()));
         adoptButton.setOnAction(e -> ViewNavigator.loadScene("New Pet", new NewAnimalScene()));
         inventoryButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", new InventoryScene()));
 
-        pane.add(volunteerButton, 0, 6);
-        pane.add(adoptButton, 1, 6);
-        pane.add(inventoryButton, 2, 6);
+        HBox hBox = new HBox(volunteerButton, adoptButton, inventoryButton);
+        hBox.setSpacing(15); // Space between buttons
+        hBox.setPadding(new Insets(10)); // Space around the buttons
+        hBox.setAlignment(Pos.BOTTOM_CENTER);
+        pane.add(hBox,0,1);
+
         this.setRoot(pane);
    }
 
