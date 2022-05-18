@@ -14,7 +14,7 @@ import java.util.Scanner;
      * @author Michael Paulding
      * @version 1.0
      */
-    public class CatDogModel {
+    public class Model {
 
         public static final String BINARY_FILE = "Animals.dat";
         public static final String CSV_FILE = "NewAnimals.csv";

@@ -1,10 +1,8 @@
 package com.animalshelter.capstone_project.controller;
 
 import com.animalshelter.capstone_project.model.CatDog;
-import com.animalshelter.capstone_project.model.CatDogModel;
+import com.animalshelter.capstone_project.model.Model;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 public class Controller {
 
@@ -17,16 +15,20 @@ public class Controller {
      */
     public static Controller getInstance() {
         //if theInstance is null, create a new object
-        if (theInstance ==null)
+        if (theInstance ==null) {
             theInstance = new Controller();
-        //otherwise, return theInstance
+            //otherwise, return theInstance
 
-        //Fill the mAllAnimalsList with data from Model
-        //if the binary file has data, fill with binary file. Otherwise, fill with csv file
-        if (CatDogModel.binaryFileHasData())
-            theInstance.mAllAnimalsList = CatDogModel.populateListFromBinaryFile();
-        else
-            theInstance.mAllAnimalsList = CatDogModel.populateListFromCSVFile();
+            //Fill the mAllAnimalsList with data from Model
+            //if the binary file has data, fill with binary file. Otherwise, fill with csv file
+            if (Model.binaryFileHasData()) {
+                System.out.println("BLA BINARY");
+                theInstance.mAllAnimalsList = Model.populateListFromBinaryFile();
+            } else {
+                System.out.println("BLA CSV");
+                theInstance.mAllAnimalsList = Model.populateListFromCSVFile();
+            }
+        }
         return theInstance;
     }
 
@@ -46,6 +48,7 @@ public class Controller {
      * a persistent binary file.
      */
     public void saveData() {
-        CatDogModel.writeDataToBinaryFile(mAllAnimalsList);
+        System.out.println("BLA");
+        Model.writeDataToBinaryFile(mAllAnimalsList);
     }
 }
