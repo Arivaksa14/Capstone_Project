@@ -8,6 +8,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+import java.util.Objects;
+
 public class NewAnimalScene extends Scene {
 
     public static final int WIDTH = 600;
@@ -26,15 +28,14 @@ public class NewAnimalScene extends Scene {
         pane.add(registryTypeCB, 1, 1);
         registryTypeCB.getItems().addAll("Enter a New Animal Record","Enter a New Medical Record");
         pane.add(goButton,1,2);
-        registryTypeCB.getSelectionModel().select(0);
-        if(registryTypeCB.getSelectionModel().getSelectedItem().equals("Enter a New Animal Record")) {
-
-            goButton.setOnAction(e -> ViewNavigator.loadScene("Enter a New Pet", new AnimalRegistryScene()));
-        }
-//        if(registryTypeCB.getSelectionModel().getSelectedItem().equals("Enter a New Medical Record")) {
-//            registryTypeCB.getSelectionModel().select(1);
-//            goButton.setOnAction(e -> ViewNavigator.loadScene("New Medical Record", new MedicalRecordScene()));
-//        }
+        // Button wiring to "get" the selected item, without adding listener to the selection
+        goButton.setOnAction(e -> ViewNavigator.loadScene("Enter a New Record", manageNewRecord(registryTypeCB.getSelectionModel().getSelectedItem())));
         this.setRoot(pane);
+
+    }
+    // Helper method to decide which scene to use
+    public Scene manageNewRecord(String s){
+        if (Objects.equals(s, "Enter a New Animal Record")) return new AnimalRegistryScene();
+        else return new MedicalRecordScene();
     }
 }

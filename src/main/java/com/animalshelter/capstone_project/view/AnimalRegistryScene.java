@@ -1,5 +1,6 @@
 package com.animalshelter.capstone_project.view;
 
+//import com.animalshelter.capstone_project.controller.Controller;
 import com.animalshelter.capstone_project.controller.Controller;
 import com.animalshelter.capstone_project.model.Animal;
 import com.animalshelter.capstone_project.model.CatDog;
@@ -27,6 +28,7 @@ public class AnimalRegistryScene extends Scene {
     private Button applyButton = new Button("Add pet");
     private Button removeButton = new Button("Remove pet");
     private Button returnButton = new Button("Return to Main Page");
+    private Button exitButton = new Button("Exit");
 
     private Label animalNameLabel = new Label("Pet's Name");
     private TextField animalNameTF = new TextField();
@@ -154,6 +156,14 @@ public class AnimalRegistryScene extends Scene {
 
         pane.add(resetButton, 1, 19);
         resetButton.setOnAction(e -> reset());
+
+        pane.add(exitButton, 1, 20);
+        exitButton.setOnAction(e -> saveAndExit());
+    }
+
+    private void saveAndExit() {
+        Controller.getInstance().saveData();
+        System.exit(0);
     }
 
     private void reset() {
@@ -188,8 +198,9 @@ public class AnimalRegistryScene extends Scene {
             animalNameErrLabel.setVisible(true);
 
         String animalType = animalTypeCB.getSelectionModel().getSelectedItem();
-       // if(animalTypeCB.getItems().isEmpty())
-        //animalTypeErrLabel.setVisible(true);
+        System.out.println(animalType);
+
+            animalTypeErrLabel.setVisible(animalType == null);
 
         char animalGender = animalGenderCB.getSelectionModel().getSelectedItem().charAt(0);
 
