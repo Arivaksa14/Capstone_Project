@@ -18,12 +18,18 @@ public class InventoryScene extends Scene {
         pane.setVgap(5);
         pane.setPadding(new Insets(5));
         pane.setAlignment(Pos.CENTER);
-        pane.add(new Label("Supply Type:"), 0, 1);
+        pane.add(new Label("Type:"), 0, 1);
         pane.add(supplyTypeCB, 1, 1);
-        supplyTypeCB.getItems().addAll("Food Supply","Other Supply");
+
+        supplyTypeCB.getItems().addAll("Perishable Goods","Non-Perishable Goods");
         supplyTypeCB.getSelectionModel().select(0);
+
         pane.add(addButton,1,2);
-        addButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", new FoodSupplyScene()));
+        addButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", manageInventory(supplyTypeCB.getSelectionModel().getSelectedItem())));
         this.setRoot(pane);
+    }
+    public Scene manageInventory(String s){
+        if (s=="Perishable Goods") return new FoodSupplyScene();
+        else return new OtherSupplyScene();
     }
 }
