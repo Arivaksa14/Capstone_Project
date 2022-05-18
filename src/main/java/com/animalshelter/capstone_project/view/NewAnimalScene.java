@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class NewAnimalScene extends Scene {
 
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 600;
+    public static final int WIDTH = 400;
+    public static final int HEIGHT = 400;
     private ComboBox<String> registryTypeCB = new ComboBox<>();
     private Button goButton = new Button("Go");
 
