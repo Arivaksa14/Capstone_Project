@@ -47,6 +47,9 @@ public class MainScene extends Scene {
         inventoryButton.setPrefSize(300,60);
 
         HBox hBox = new HBox(volunteerButton, adoptButton, inventoryButton);
+        this.volunteerButton.setPrefSize(300.0D, 60.0D);
+        this.adoptButton.setPrefSize(300.0D, 60.0D);
+        this.inventoryButton.setPrefSize(300.0D, 60.0D);
         hBox.setSpacing(15); // Space between buttons
         hBox.setPadding(new Insets(10)); // Space around the buttons
         hBox.setAlignment(Pos.CENTER);
