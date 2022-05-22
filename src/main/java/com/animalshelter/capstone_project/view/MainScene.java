@@ -30,7 +30,7 @@ public class MainScene extends Scene {
         super(new GridPane(), WIDTH, HEIGHT);
 
         GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
+        pane.setAlignment(Pos.TOP_CENTER);
         pane.setHgap(5);
         pane.setVgap(5);
 
@@ -46,8 +46,8 @@ public class MainScene extends Scene {
         HBox hBox = new HBox(volunteerButton, adoptButton, inventoryButton);
         hBox.setSpacing(15); // Space between buttons
         hBox.setPadding(new Insets(10)); // Space around the buttons
-        hBox.setAlignment(Pos.BOTTOM_CENTER);
-        pane.add(hBox,0,1);
+        hBox.setAlignment(Pos.CENTER);
+        pane.add(hBox,0,1,3,1);
 
         this.setRoot(pane);
    }
