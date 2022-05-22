@@ -10,7 +10,7 @@ public class CatDog extends Animal implements Serializable {
     private String mGoodWithOtherAnimals;
     private String mActive;
 
-    public CatDog(String animalName, String animalType, char animalGender, String animalAgeCat, String indoorOrOutdoor, String trained, String goodWithOtherAnimals, String active) {
+    public CatDog(String animalName, String animalType, String animalGender, String animalAgeCat, String indoorOrOutdoor, String trained, String goodWithOtherAnimals, String active) {
         super(animalName, animalType, animalGender, animalAgeCat);
         mIndoorOrOutdoor = indoorOrOutdoor;
         mTrained = trained;
@@ -67,14 +67,14 @@ public class CatDog extends Animal implements Serializable {
     @Override
     public String toString() {
         return "Cat/Dog [" +
-                "AnimalName='" + mAnimalName + '\'' +
-                ", AnimalType='" + mAnimalType + '\'' +
-                ", AnimalGender=" + mAnimalGender +
-                ", AnimalAgeCat='" + mAnimalAgeCat + '\'' +
-                ", IndoorOrOutdoor='" + mIndoorOrOutdoor + '\'' +
-                ", Trained='" + mTrained + '\'' +
-                ", GoodWithOtherAnimals='" + mGoodWithOtherAnimals + '\'' +
-                ", Active='" + mActive + '\'' +
+                "Animal Name = " + mAnimalName + '\'' +
+                ", Animal Type = " + mAnimalType + '\'' +
+                ", Animal Gender = " + mAnimalGender +
+                ", Animal Age Category = " + mAnimalAgeCat + '\'' +
+                ", Indoor Or Outdoor = " + mIndoorOrOutdoor + '\'' +
+                ", Trained = " + mTrained + '\'' +
+                ", Good With Other Animals = " + mGoodWithOtherAnimals + '\'' +
+                ", Active = " + mActive + '\'' +
                 ']';
     }
 }
