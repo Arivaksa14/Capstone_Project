@@ -30,7 +30,7 @@ public class MainScene extends Scene {
         super(new GridPane(), WIDTH, HEIGHT);
 
         GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
+        pane.setAlignment(Pos.TOP_CENTER);
         pane.setHgap(5);
         pane.setVgap(5);
 
@@ -40,8 +40,11 @@ public class MainScene extends Scene {
         pane.add(mainAppImage, 0, 0, 3, 1);
 
         volunteerButton.setOnAction(e -> ViewNavigator.loadScene("Welcome Volunteer!", new VolunteerScene()));
+        volunteerButton.setPrefSize(300,60);
         adoptButton.setOnAction(e -> ViewNavigator.loadScene("New Pet", new NewAnimalScene()));
+        adoptButton.setPrefSize(300,60);
         inventoryButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", new InventoryScene()));
+        inventoryButton.setPrefSize(300,60);
 
         HBox hBox = new HBox(volunteerButton, adoptButton, inventoryButton);
         hBox.setSpacing(15); // Space between buttons

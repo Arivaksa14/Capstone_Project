@@ -7,10 +7,10 @@ public class Animal implements Serializable {
 
     protected String mAnimalName;
     protected String mAnimalType;
-    protected char mAnimalGender;
+    protected String mAnimalGender;
     protected String mAnimalAgeCat;
 
-    public Animal(String animalName, String animalType, char animalGender, String animalAgeCat) {
+    public Animal(String animalName, String animalType, String animalGender, String animalAgeCat) {
         mAnimalName = animalName;
         mAnimalType = animalType;
         mAnimalGender = animalGender;
@@ -33,11 +33,11 @@ public class Animal implements Serializable {
         mAnimalType = animalType;
     }
 
-    public char getAnimalGender() {
+    public String getAnimalGender() {
         return mAnimalGender;
     }
 
-    public void setAnimalGender(char animalGender) {
+    public void setAnimalGender(String animalGender) {
         mAnimalGender = animalGender;
     }
 

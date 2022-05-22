@@ -1,13 +1,18 @@
 package com.animalshelter.capstone_project.controller;
 
 import com.animalshelter.capstone_project.model.CatDog;
+import com.animalshelter.capstone_project.model.MedicalRecord;
 import com.animalshelter.capstone_project.model.Model;
 import javafx.collections.ObservableList;
+
+import static com.animalshelter.capstone_project.model.Model.BINARY_FILE_ANIMALS;
+import static com.animalshelter.capstone_project.model.Model.BINARY_FILE_MEDICAL_RECORD;
 
 public class Controller {
 
     private static Controller theInstance;
     private ObservableList<CatDog> mAllAnimalsList;
+    private ObservableList<MedicalRecord> mAllMedicalRecordsList;
 
     /**
      * Gets the one instance of the Controller.
@@ -21,13 +26,17 @@ public class Controller {
 
             //Fill the mAllAnimalsList with data from Model
             //if the binary file has data, fill with binary file. Otherwise, fill with csv file
-            if (Model.binaryFileHasData()) {
-                System.out.println("BLA BINARY");
-                theInstance.mAllAnimalsList = Model.populateListFromBinaryFile();
+            if (Model.binaryFileHasData(BINARY_FILE_ANIMALS)) {
+                theInstance.mAllAnimalsList = Model.populateAnimalsListFromBinaryFile();
             } else {
-                System.out.println("BLA CSV");
-                theInstance.mAllAnimalsList = Model.populateListFromCSVFile();
+                theInstance.mAllAnimalsList = Model.populateAnimalsListFromCSVFile();
             }
+            if (Model.binaryFileHasData(BINARY_FILE_MEDICAL_RECORD)) {
+                theInstance.mAllMedicalRecordsList = Model.populateMedicalRecordsListFromBinaryFile();
+            } else {
+                theInstance.mAllMedicalRecordsList = Model.populateMedicalRecordsListFromCSVFile();
+            }
+
         }
         return theInstance;
     }
@@ -39,8 +48,12 @@ public class Controller {
      * Gets the list of all animals.
      * @return The list of all animals.
      */
-    public  ObservableList<CatDog> getAllAnimals() {
+    public ObservableList<CatDog> getAllAnimals() {
         return mAllAnimalsList;
+    }
+
+    public ObservableList<MedicalRecord> getAllMedicalRecords() {
+        return mAllMedicalRecordsList;
     }
 
     /**
@@ -48,7 +61,7 @@ public class Controller {
      * a persistent binary file.
      */
     public void saveData() {
-        System.out.println("BLA");
-        Model.writeDataToBinaryFile(mAllAnimalsList);
+        Model.writeDataToAnimalsBinaryFile(mAllAnimalsList);
+        Model.writeDataToMedicalRecordsBinaryFile(mAllMedicalRecordsList);
     }
 }

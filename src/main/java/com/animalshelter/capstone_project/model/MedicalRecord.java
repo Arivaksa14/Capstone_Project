@@ -10,7 +10,7 @@ public class MedicalRecord extends Animal implements Serializable {
     private String mSpayedOrNeutered;
     private String mVaccinated;
 
-    public MedicalRecord(String animalName, String animalType, char animalGender, String animalAgeCat, String declawed, String healthIssues, String spayedOrNeutered, String vaccinated) {
+    public MedicalRecord(String animalName, String animalType, String animalGender, String animalAgeCat, String declawed, String healthIssues, String spayedOrNeutered, String vaccinated) {
         super(animalName, animalType, animalGender, animalAgeCat);
         mDeclawed = declawed;
         mHealthIssues = healthIssues;
@@ -66,15 +66,15 @@ public class MedicalRecord extends Animal implements Serializable {
 
     @Override
     public String toString() {
-        return "Medical Record[" +
-                "AnimalName='" + mAnimalName + '\'' +
-                ", AnimalType='" + mAnimalType + '\'' +
-                ", AnimalGender=" + mAnimalGender +
-                ", AnimalAgeCat='" + mAnimalAgeCat + '\'' +
-                ", Declawed='" + mDeclawed + '\'' +
-                ", HealthIssues='" + mHealthIssues + '\'' +
-                ", SpayedOrNeutered='" + mSpayedOrNeutered + '\'' +
-                ", Vaccinated='" + mVaccinated + '\'' +
+        return "Medical Record [" +
+                "Animal Name = " + mAnimalName + '\'' +
+                ", Animal Type = " + mAnimalType + '\'' +
+                ", Animal Gender = " + mAnimalGender +
+                ", Animal Age Category = " + mAnimalAgeCat + '\'' +
+                ", Declawed = " + mDeclawed + '\'' +
+                ", Health Issues = " + mHealthIssues + '\'' +
+                ", Spayed Or Neutered = " + mSpayedOrNeutered + '\'' +
+                ", Vaccinated = " + mVaccinated + '\'' +
                 ']';
     }
 }
