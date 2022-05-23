@@ -3,7 +3,7 @@ package com.animalshelter.capstone_project.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class CatDog extends Animal implements Serializable {
+public class CatDog extends Animal implements Comparable<Animal>, Serializable {
 
     private String mIndoorOrOutdoor;
     private String mTrained;
@@ -67,14 +67,33 @@ public class CatDog extends Animal implements Serializable {
     @Override
     public String toString() {
         return "Cat/Dog [" +
-                "Animal Name = " + mAnimalName + '\'' +
-                ", Animal Type = " + mAnimalType + '\'' +
+                "Animal Name = " + mAnimalName +
+                ", Animal Type = " + mAnimalType +
                 ", Animal Gender = " + mAnimalGender +
-                ", Animal Age Category = " + mAnimalAgeCat + '\'' +
-                ", Indoor Or Outdoor = " + mIndoorOrOutdoor + '\'' +
-                ", Trained = " + mTrained + '\'' +
-                ", Good With Other Animals = " + mGoodWithOtherAnimals + '\'' +
-                ", Active = " + mActive + '\'' +
+                ", Animal Age Category = " + mAnimalAgeCat +
+                ", Indoor Or Outdoor = " + mIndoorOrOutdoor +
+                ", Trained = " + mTrained +
+                ", Good With Other Animals = " + mGoodWithOtherAnimals +
+                ", Active = " + mActive +
                 ']';
+    }
+
+
+    @Override
+    public int compareTo(Animal o) {
+        int superComp = super.compareTo(o);
+        if(superComp != 0)
+            return superComp;
+        if(o instanceof CatDog) {
+            CatDog other = (CatDog) o;
+            int trainedComp = this.mTrained.compareTo(other.mTrained);
+            if(trainedComp !=0)
+                return trainedComp;
+            int goodWithOtherAnimalsComp = this.mGoodWithOtherAnimals.compareTo(other.mGoodWithOtherAnimals);
+            if(goodWithOtherAnimalsComp !=0)
+                return goodWithOtherAnimalsComp;
+        }
+        return this.getClass().getCanonicalName().compareToIgnoreCase(o.getClass().getCanonicalName());
+
     }
 }
