@@ -101,7 +101,7 @@ public class MedicalRecordScene extends Scene {
 
         pane.add(new Label("Declawed"), 0, 5);
         pane.add(declawedCB, 1, 5);
-        declawedCB.getItems().addAll("Yes", "No");
+        declawedCB.getItems().addAll("Yes", "No", "N/A");
         pane.add(declawedErrLabel, 2, 5);
         declawedErrLabel.setTextFill(Color.RED);
         declawedErrLabel.setVisible(false);

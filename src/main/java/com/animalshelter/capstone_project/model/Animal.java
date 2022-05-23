@@ -3,7 +3,7 @@ package com.animalshelter.capstone_project.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Animal implements Serializable {
+public class Animal implements Comparable<Animal>, Serializable {
 
     protected String mAnimalName;
     protected String mAnimalType;
@@ -70,5 +70,10 @@ public class Animal implements Serializable {
                 ", AnimalGender=" + mAnimalGender +
                 ", AnimalAgeCat='" + mAnimalAgeCat + '\'' +
                 ']';
+    }
+
+    @Override
+    public int compareTo(Animal other) {
+        return this.mAnimalType.compareTo(other.mAnimalType);
     }
 }
