@@ -152,7 +152,7 @@ public class AnimalRegistryScene extends Scene {
         pane.add(resetButton, 1, 19);
         resetButton.setOnAction(e -> reset());
 
-        pane.add(exitButton, 1, 20);
+        pane.add(exitButton, 3, 19);
         exitButton.setOnAction(e -> saveAndExit());
     }
 
