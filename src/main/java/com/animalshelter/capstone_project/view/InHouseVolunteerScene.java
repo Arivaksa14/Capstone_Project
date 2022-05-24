@@ -5,10 +5,13 @@ import com.animalshelter.capstone_project.model.InHouseVolunteer;
 import com.animalshelter.capstone_project.model.Volunteer;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class InHouseVolunteerScene extends Scene {
@@ -28,20 +31,18 @@ public class InHouseVolunteerScene extends Scene {
     public static final int LOCATION_ROW = 14;
     public static final int DATE_ROW = 15;
     public static final int RESET_SUBMIT_ROW = 16;
-    public static final int RETURN_ROW = 16;
+    public static final int RETURN_ROW = 1;
     public static final int REMOVE_ROW = 16;
-    public static final int SAVE_ROW = 16;
+    public static final int SAVE_ROW = 1;
     public static final int EXIT_ROW = 19;
 
     public static final int WIDTH = 700;
-    public static final int HEIGHT = 700;
+    public static final int HEIGHT = 900;
 
     public static final String [] LOCATION_CHOICES = {"Bahde Wildlife Center", "Escondido",
                                             "Oceanside", "Ramona", "San Diego"};
     public static final String [] EXPERIENCE_CHOICES = {"None", "1 year", "2 years"};
     public static final String [] WALKING_CHOICES = {"No", "Yes"};
-
-    private ImageView volunteerInHouseImage = new ImageView();
 
     private ListView<Volunteer> volunteerLV = new ListView<>();
 
@@ -49,13 +50,11 @@ public class InHouseVolunteerScene extends Scene {
     private ObservableList<Volunteer> volunteerList;
     private Volunteer selectedVolunteer;
 
-
-    //TODO: COMPLETE!!!!!!!!!!!!!!!!!!!!!!
-    //private Controller controller = Controller.getInstance();
+    private ImageView inHouseVolunteerImage = new ImageView();
 
     private Button resetButton = new Button("Reset Choices");
-    private Button addInHouseVolunteerButton = new Button("+ Add In House Volunteer");
-    private Button removeButton = new Button("- Remove Volunteer");
+    private Button addInHouseVolunteerButton = new Button("+ Volunteer");
+    private Button removeButton = new Button("- Volunteer");
     private Button returnButton = new Button("Return to Main Page");
     private Button saveExitButton = new Button("Save & Exit");
 
@@ -133,19 +132,21 @@ public class InHouseVolunteerScene extends Scene {
         pane.setVgap(5);
         pane.setPadding(new Insets(5));
 
+        inHouseVolunteerImage.setImage(new Image("Volunteerpic3.png"));
+        inHouseVolunteerImage.setFitWidth(WIDTH);
+        pane.add(inHouseVolunteerImage, 0, 0, 3, 1);
+
         pane.add(firstNameLabel, 0 ,FIRST_NAME_ROW);
         pane.add(firstNameTF, 1, FIRST_NAME_ROW);
         pane.add(firstNameErrLabel, 2, FIRST_NAME_ROW);
         firstNameErrLabel.setTextFill(Color.RED);
         firstNameErrLabel.setVisible(false);
 
-
         pane.add(lastNameLabel, 0 ,LAST_NAME_ROW);
         pane.add(lastNameTF, 1, LAST_NAME_ROW);
         pane.add(lastNameErrLabel, 2, LAST_NAME_ROW);
         lastNameErrLabel.setTextFill(Color.RED);
         lastNameErrLabel.setVisible(false);
-
 
         pane.add(ageLabel, 0, AGE_ROW);
         pane.add(ageTF, 1, AGE_ROW);
@@ -243,25 +244,26 @@ public class InHouseVolunteerScene extends Scene {
         volunteerLV.setItems(volunteerList);
 
         volunteerLV.setPrefWidth(WIDTH);
-        pane.add(volunteerLV, 0, 18, 3, 1);
+        pane.add(volunteerLV, 0, 20, 5, 1);
         volunteerLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
 
+        pane.add(returnButton, 0, RETURN_ROW);
+        returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
 
-        pane.add(resetButton, 2, RESET_SUBMIT_ROW);
+        pane.add(resetButton, 1, RESET_SUBMIT_ROW);
         resetButton.setOnAction(e -> reset());
 
         pane.add(addInHouseVolunteerButton, 4, RESET_SUBMIT_ROW);
         addInHouseVolunteerButton.setOnAction(e -> addInHouseVolunteer());
 
-        pane.add(returnButton, 0, RETURN_ROW);
-        returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
-
-        pane.add(removeButton, 1, REMOVE_ROW);
+        pane.add(removeButton, 0, REMOVE_ROW);
         removeButton.setDisable(true);
         removeButton.setOnAction(event -> removeVolunteer());
 
-        pane.add(saveExitButton, 3, EXIT_ROW);
+        pane.add(saveExitButton, 4, SAVE_ROW);
         saveExitButton.setOnAction(e -> saveAndExit());
+
+
         this.setRoot(pane);
     }
 
