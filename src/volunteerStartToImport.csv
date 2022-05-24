@@ -1,0 +1,2 @@
+first_name,last_name,phone_number,email_domain,city,reason,animal_type,availability,experience,start_date_Location,end_date_Date,housing_nickName,boolean_transportation_walking
+Jorge,Garcia,(111) 222-3333,email@gmail.com,Oceanside,Love of Animals!,Dog,Weekdays,None,05/22/2022,05/23/2022,N/A,TRUE
