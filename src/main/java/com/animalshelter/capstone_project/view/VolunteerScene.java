@@ -1,5 +1,6 @@
 package com.animalshelter.capstone_project.view;
 import com.animalshelter.capstone_project.controller.Controller;
+import com.animalshelter.capstone_project.controller.VolunteerController;
 import com.animalshelter.capstone_project.model.FosterVolunteer;
 import com.animalshelter.capstone_project.model.InHouseVolunteer;
 import com.animalshelter.capstone_project.model.Volunteer;
@@ -7,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 import java.io.*;
@@ -34,30 +37,38 @@ public class VolunteerScene extends Scene {
     /**
      * EASIER TO MANAGE SCENE POSITIONING
      */
+
+    public static final int IMAGE_ROW = 0;
+    public static final int SELECT_VOLUNTEER_ROW = 2;
+    public static final int FOSTER_CHOICE_CB_ROW = 3;
+    public static final int VOLUNTEER_SELECTION_ROW = 4;
+    public static final int CURRENT_VOLUNTEERS_ROW = 5;
+    public static final int LV_ROW = 6;
+    public static final int NEXT_BUTTON_ROW = 10;
     public static final int WIDTH = 700;
     public static final int HEIGHT = 700;
 
     private ImageView volunteerImage = new ImageView();
 
     private ObservableList<Volunteer> volunteersList;
-
     private ListView<Volunteer> volunteerListView = new ListView<>();
-
-    //private Controller controller = Controller.getInstance();
+    private VolunteerController controller = VolunteerController.getInstance();
 
     private Button resetButton = new Button("Reset Choices");
     private Button addButton = new Button("Add to Schedule");
     private Button nextButton = new Button("Next");
     private Button submitButton = new Button("Submit");
 
-    private Label volunteerTypeLabel = new Label("Volunteer Foster or In House?");
+
+    private Label selectVolunteerLabel = new Label("Please select to enter either Foster or In House Volunteer");
+    private Label volunteerTypeLabel = new Label();
     private ComboBox<String> volunteerTypeComboBox = new ComboBox<>();
     private String volunteerTypeSelected = "Foster";
 
+    private Label currentVolunteersLabel = new Label("Currently entered Volunteers:");
+
     private ColorPicker colorPicker = new ColorPicker();
 
-    //TODO: complete once controller is set up with rest of class
-    //private HelloController controller = HelloController.getInstance();
     /**
      *
      */
@@ -69,41 +80,47 @@ public class VolunteerScene extends Scene {
         pane.setHgap(10.0);
         pane.setVgap(5);
         pane.setPadding(new Insets(5));
-/*
+
         pane.add(new Label("Choose a color for this backround :)"), 0, 10);
 
-        pane.add(colorPicker, 1, 10);
-        Color chosenColor = colorPicker.getValue().
-        pane.setBackground(new Background(new BackgroundFill(chosenColor, null, null)));
+        //pane.add(colorPicker, 1, 10);
+        //Color chosenColor = colorPicker.getValue().
+        //pane.setBackground(new Background(new BackgroundFill(chosenColor, null, null)));
+        //pane.setBackground(new BackgroundFill(Color.CYAN, null, null));
 
- */
-
-        volunteerImage.setImage(new Image("AnimalVolunteerPicResized.png"));
+        volunteerImage.setImage(new Image("volunteerpic2.png"));
         volunteerImage.setFitWidth(WIDTH);
-        pane.add(volunteerImage, 0, 0, 3, 1);
+        pane.add(volunteerImage, 0, IMAGE_ROW, 3, 1);
 
-        pane.add(volunteerTypeLabel, 0, 7);
+        //pane.add(selectVolunteerLabel, 0, SELECT_VOLUNTEER_ROW);
+
+        pane.add(volunteerTypeLabel, 0, VOLUNTEER_SELECTION_ROW);
+
+        pane.add(currentVolunteersLabel, 0, CURRENT_VOLUNTEERS_ROW);
+
+        HBox selectCBHbox = new HBox(selectVolunteerLabel, volunteerTypeComboBox);
+        selectCBHbox.setSpacing(10);
+        selectCBHbox.setAlignment(Pos.CENTER);
+        pane.add(selectCBHbox, 0, FOSTER_CHOICE_CB_ROW);
+
         volunteerTypeComboBox.getItems().addAll( "Foster", "In House Volunteer");
-        volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> changeVolunteerTypeLabel(newVal));
-        pane.add(volunteerTypeComboBox, 1, 7);
+        volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener
+                ((obsVal, oldVal, newVal) -> changeVolunteerTypeLabel(newVal));
+        //pane.add(volunteerTypeComboBox, 1, FOSTER_CHOICE_CB_ROW);
+        volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener
+                ((obsVal, oldVal, newVal) -> volunteerTypeSelection(newVal));
         volunteerTypeComboBox.getSelectionModel().select(0);
 
-        volunteerListView.setPrefWidth(WIDTH);
-        pane.add(volunteerListView, 0, 8, 3, 1);
-
-        //TODO: ->
-        //volunteersList = controller.getAllVolunteers();
+        volunteersList = controller.getAllVolunteers();
         volunteerListView.setItems(volunteersList);
+        volunteerListView.setPrefWidth(WIDTH);
+        pane.add(volunteerListView, 0, LV_ROW, 3, 1);
 
-        pane.add(nextButton, 4, 10);
-        volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> volunteerTypeSelection(newVal));
+        pane.add(nextButton, 4, NEXT_BUTTON_ROW);
 
         nextButton.setOnAction(e -> selectScene(volunteerTypeSelected));
-        //nextButton.setOnAction(e -> volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectScene(newVal)));
 
         this.setRoot(pane);
-        //volunteerTypeComboBox.setOnAction(e -> volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectScene(newVal)));
-        //TODO: Time Slots
     }
 
     /**
@@ -123,7 +140,6 @@ public class VolunteerScene extends Scene {
             ViewNavigator.loadScene("In House Volunteer Data Entry", new InHouseVolunteerScene());
     }
 
-
     /**
      * changes volunteerTypeLabel to reflect what is selected
      */
@@ -131,123 +147,6 @@ public class VolunteerScene extends Scene {
         volunteerTypeLabel.setText(newVal + " selected.");
     }
 
-    /**
-     *
-     */
-    public static final String BINARY_FILE_VOLUNTEER = "volunteer.dat";
-    public static final String CSV_VOLUNTEER_FILE = "volunteerStartToImport.csv";
-
-    /**
-     *
-     */
-    public static boolean volunteerBinaryHasData(){
-        File volunteerBinaryFile = new File(BINARY_FILE_VOLUNTEER);
-        return (volunteerBinaryFile.exists() && volunteerBinaryFile.length() >= 5L);
-    }
-
-
-    /**
-     *
-     */
-    public static ObservableList<Volunteer> populateListVolunteerBinaryFile() {
-
-        ObservableList<Volunteer> volunteers = FXCollections.observableArrayList();
-        try {
-            ObjectInputStream fileReader = new ObjectInputStream(new FileInputStream(BINARY_FILE_VOLUNTEER));
-            // read from binary file into an array
-            Volunteer[] array = (Volunteer[]) fileReader.readObject();
-            // loop through array and add each laureate to list
-            for(Volunteer nl : array)
-                volunteers.add(nl);
-            fileReader.close();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return volunteers;
-    }
-
-    public static ObservableList<Volunteer> populateFromCSVFile(){
-
-        ObservableList<Volunteer> allVolunteers = FXCollections.observableArrayList();
-
-        String firstName;
-        String lastName;
-        int age;
-        String phoneNumber;
-        String email;
-        String city;
-        String reason;
-        String animalType;
-        String availability;
-        String experience;
-        String startDateORLocation;
-        String endDateORDate;
-        String housingORNickname;
-        String transportationORwalkingString;
-        boolean transportationORwalkingboolean;
-
-        String line;
-        String [] parts;
-
-        try {
-            Scanner fileScanner = new Scanner(new File(CSV_VOLUNTEER_FILE));
-            // Skip the first line
-            // Loop through the file
-            fileScanner.nextLine(); // skip 1st line
-            while(fileScanner.hasNextLine()){
-                // read one line from the CSV
-                line = fileScanner.nextLine();
-                parts = line.split(",");
-                firstName = parts[0];
-                lastName = parts[1];
-                age = Integer.parseInt(parts[2]);
-                phoneNumber = parts[3];
-                email = parts[4];
-                city = parts[5];
-                reason = parts[6];
-                animalType = parts[7];
-                availability = parts[8];
-                experience = parts[9];
-                startDateORLocation = parts[10];
-                endDateORDate = parts[11];
-                housingORNickname = parts[12];
-                transportationORwalkingString = parts[13];
-                if(transportationORwalkingString.equalsIgnoreCase("True"))
-                    transportationORwalkingboolean = true;
-                else
-                    transportationORwalkingboolean = false;
-                allVolunteers.add(
-                        new InHouseVolunteer(firstName,lastName, age, phoneNumber, email, city, reason,
-                        animalType, availability, experience, startDateORLocation, endDateORDate, housingORNickname,
-                        transportationORwalkingboolean));
-            }
-            fileScanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return allVolunteers;
-    }
-
-    /**
-     *
-     */
-    public static boolean writeToVolunteerBinary(ObservableList<Volunteer> allVolunteers){
-
-        Volunteer[] array = new Volunteer[allVolunteers.size()];
-        // copy all the list data into the array
-        for (int i = 0; i < array.length; i++) {
-            array[i] = allVolunteers.get(i);
-        }
-        try {
-            ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(BINARY_FILE_VOLUNTEER));
-            fileWriter.writeObject(array);
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
 }
 /*
 

@@ -94,21 +94,21 @@ public class FosterVolunteer extends Volunteer implements Comparable<Volunteer>,
 
     @Override
     public String toString() {
-        return "FosterVolunteer{" +
-                "mStartDate='" + mStartDate + '\'' +
-                ", mEndDate='" + mEndDate + '\'' +
-                ", mHousing='" + mHousing + '\'' +
-                ", mReliableTransportation=" + mReliableTransportation +
-                ", mFirstName='" + mFirstName + '\'' +
-                ", mLastName='" + mLastName + '\'' +
-                ", mAge=" + mAge +
-                ", formattedPhoneNumber='" + formattedPhoneNumber + '\'' +
-                ", mEmail='" + mEmail + '\'' +
-                ", mCity='" + mCity + '\'' +
-                ", mReason='" + mReason + '\'' +
-                ", mAnimalType='" + mAnimalType + '\'' +
-                ", mAvailability='" + mAvailability + '\'' +
-                ", mExperience='" + mExperience + '\'' +
-                '}';
+        return "Foster Volunteer [" +
+                " Start Date = " + mStartDate +
+                ", End Date = " + mEndDate +
+                ", Housing = " + mHousing +
+                ", Reliable Transportation = " + mReliableTransportation +
+                ", First Name = " + mFirstName +
+                ", Last Name = " + mLastName +
+                ", Age = " + mAge +
+                ", Phone Number = " + formattedPhoneNumber +
+                ", Email= " + mEmail +
+                ", City = " + mCity +
+                ", Reason = " + mReason +
+                ", Animal Preference = " + mAnimalType +
+                ", Availability = " + mAvailability +
+                ", Foster Experience =" + mExperience +
+                " ]";
     }
 }

@@ -193,4 +193,127 @@ import java.util.Scanner;
             }
             return true;
         }
+
+
+
+
+        /**
+         *
+         */
+        public static final String BINARY_FILE_VOLUNTEER = "volunteer.dat";
+        public static final String CSV_VOLUNTEER_FILE = "volunteerStartToImport.csv";
+
+        /**
+         *
+         */
+        public static boolean volunteerBinaryHasData(){
+            File volunteerBinaryFile = new File(BINARY_FILE_VOLUNTEER);
+            return (volunteerBinaryFile.exists() && volunteerBinaryFile.length() >= 5L);
+        }
+
+
+        /**
+         *
+         */
+        public static ObservableList<Volunteer> populateListVolunteerBinaryFile() {
+
+            ObservableList<Volunteer> volunteers = FXCollections.observableArrayList();
+            try {
+                ObjectInputStream fileReader = new ObjectInputStream(new FileInputStream(BINARY_FILE_VOLUNTEER));
+                // read from binary file into an array
+                Volunteer[] array = (Volunteer[]) fileReader.readObject();
+                // loop through array and add each laureate to list
+                for(Volunteer nl : array)
+                    volunteers.add(nl);
+                fileReader.close();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return volunteers;
+        }
+
+        public static ObservableList<Volunteer> populateFromVolunteerCSVFile(){
+
+            ObservableList<Volunteer> allVolunteers = FXCollections.observableArrayList();
+
+            String firstName;
+            String lastName;
+            int age;
+            String phoneNumber;
+            String email;
+            String city;
+            String reason;
+            String animalType;
+            String availability;
+            String experience;
+            String startDateORLocation;
+            String endDateORDate;
+            String housingORNickname;
+            String transportationORwalkingString;
+            boolean transportationORwalkingboolean;
+
+            String line;
+            String [] parts;
+
+            try {
+                Scanner fileScanner = new Scanner(new File(CSV_VOLUNTEER_FILE));
+                // Skip the first line
+                // Loop through the file
+                fileScanner.nextLine(); // skip 1st line
+                while(fileScanner.hasNextLine()){
+                    // read one line from the CSV
+                    line = fileScanner.nextLine();
+                    parts = line.split(",");
+                    firstName = parts[0];
+                    lastName = parts[1];
+                    age = Integer.parseInt(parts[2]);
+                    phoneNumber = parts[3];
+                    email = parts[4];
+                    city = parts[5];
+                    reason = parts[6];
+                    animalType = parts[7];
+                    availability = parts[8];
+                    experience = parts[9];
+                    startDateORLocation = parts[10];
+                    endDateORDate = parts[11];
+                    housingORNickname = parts[12];
+                    transportationORwalkingString = parts[13];
+                    if(transportationORwalkingString.equalsIgnoreCase("True"))
+                        transportationORwalkingboolean = true;
+                    else
+                        transportationORwalkingboolean = false;
+                    allVolunteers.add(
+                            new InHouseVolunteer(firstName,lastName, age, phoneNumber, email, city, reason,
+                                    animalType, availability, experience, startDateORLocation, endDateORDate, housingORNickname,
+                                    transportationORwalkingboolean));
+                }
+                fileScanner.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return allVolunteers;
+        }
+
+        /**
+         *
+         */
+        public static boolean writeToVolunteerBinary(ObservableList<Volunteer> allVolunteers){
+
+            Volunteer[] array = new Volunteer[allVolunteers.size()];
+            // copy all the list data into the array
+            for (int i = 0; i < array.length; i++) {
+                array[i] = allVolunteers.get(i);
+            }
+            try {
+                ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(BINARY_FILE_VOLUNTEER));
+                fileWriter.writeObject(array);
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+
     }

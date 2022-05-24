@@ -1,14 +1,14 @@
 package com.animalshelter.capstone_project.view;
 
-import com.animalshelter.capstone_project.controller.Controller;
+import com.animalshelter.capstone_project.controller.VolunteerController;
 import com.animalshelter.capstone_project.model.FosterVolunteer;
-import com.animalshelter.capstone_project.model.InHouseVolunteer;
 import com.animalshelter.capstone_project.model.Volunteer;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
@@ -23,6 +23,8 @@ public class FosterVolunteerScene extends Scene {
     String dateFormatted =dateChosen.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
 
      */
+    public static final int RETURN_ROW = 1;
+    public static final int SAVE_ROW = 1;
     public static final int FIRST_NAME_ROW = 2;
     public static final int LAST_NAME_ROW = 3;
     public static final int AGE_ROW = 4;
@@ -39,8 +41,8 @@ public class FosterVolunteerScene extends Scene {
     public static final int TRANSPORTATION_ROW = 15;
     public static final int REMOVE_ROW = 16;
     public static final int RESET_SUBMIT_ROW = 16;
-    public static final int RETURN_ROW = 16;
-    public static final int SAVE_ROW = 16;
+
+
 
 
 
@@ -50,19 +52,22 @@ public class FosterVolunteerScene extends Scene {
 
 
     public static final int WIDTH = 700;
-    public static final int HEIGHT = 700;
+    public static final int HEIGHT = 900;
 
     private ListView<Volunteer> volunteerLV = new ListView<>();
+
+    private VolunteerController controller = VolunteerController.getInstance();
     private ObservableList<Volunteer> volunteerList;
     private Volunteer selectedVolunteer;
 
+    private ImageView fosterVolunteerImage = new ImageView();
 
     // General Buttons
     private Button resetButton = new Button("Reset Choices");
-    private Button addFosterButton = new Button("+ Add Foster Volunteer");
-    private Button removeButton = new Button("- Remove Volunteer");
+    private Button addFosterButton = new Button("+ Volunteer");
+    private Button removeButton = new Button("- Volunteer");
     private Button returnButton = new Button("Return to Main Page");
-    private Button exitButton = new Button("Exit");
+    private Button saveExitButton = new Button("Save & Exit");
 
     // General Requirements
     private Label firstNameLabel = new Label("Volunteer First Name");
@@ -93,7 +98,6 @@ public class FosterVolunteerScene extends Scene {
     private Label volunteerTypeLabel = new Label("Volunteer Foster or In House?");
     private ComboBox<String> volunteerTypeComboBox = new ComboBox<>();
     private String volunteerTypeSelected = "Foster";
-
 
  */
     private Label animalTypeLabel = new Label("Volunteer Animal Category");
@@ -152,6 +156,11 @@ public class FosterVolunteerScene extends Scene {
         pane.setHgap(10.0);
         pane.setVgap(5);
         pane.setPadding(new Insets(5));
+
+        fosterVolunteerImage.setImage(new Image("fostervolunteerpic.png"));
+        fosterVolunteerImage.setFitWidth(WIDTH);
+        pane.add(fosterVolunteerImage, 0, 0, 3, 1);
+
         // General Requirements
         pane.add(firstNameLabel, 0 ,FIRST_NAME_ROW);
         pane.add(firstNameTF, 1, FIRST_NAME_ROW);
@@ -204,13 +213,13 @@ public class FosterVolunteerScene extends Scene {
         // Foster Dedicated
         pane.add(volunteerAvailabilityLabel, 0, AVAILABILITY_ROW);
         volunteerAvailabilityCB.getItems().addAll( "Weekdays", "Weekends", "Flexible");
-        volunteerAvailabilityCB.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> availabilitySelect(newVal));
+        volunteerAvailabilityCB.getSelectionModel().selectedItemProperty().addListener
+                ((obsVal, oldVal, newVal) -> availabilitySelect(newVal));
         pane.add(volunteerAvailabilityCB, 1, AVAILABILITY_ROW);
         volunteerAvailabilityCB.getSelectionModel().select(0);
 
         pane.add(volunteerAvailabilityErr, 2, AVAILABILITY_ROW);
         volunteerAvailabilityErr.setVisible(false);
-
 
         pane.add(experienceLabel, 0, EXPERIENCE_ROW);
         experienceCB.getItems().addAll(EXPERIENCE_CHOICES);
@@ -262,15 +271,14 @@ public class FosterVolunteerScene extends Scene {
         transportationErrLabel.setVisible(false);
         transportationErrLabel.setTextFill(Color.RED);
 
-
-        // TODO: COMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //volunteerList = controller.getAllAnimals();
+        volunteerList = controller.getAllVolunteers();
         volunteerLV.setItems(volunteerList);
+
         volunteerLV.setPrefWidth(WIDTH);
-        pane.add(volunteerLV, 0, 18, 4, 1);
+        pane.add(volunteerLV, 0, 18, 5, 1);
         volunteerLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
 
-        pane.add(resetButton, 2, RESET_SUBMIT_ROW);
+        pane.add(resetButton, 1, RESET_SUBMIT_ROW);
         resetButton.setOnAction(e -> reset());
 
         pane.add(addFosterButton, 4, RESET_SUBMIT_ROW);
@@ -279,18 +287,18 @@ public class FosterVolunteerScene extends Scene {
         pane.add(returnButton, 0, RETURN_ROW);
         returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
 
-        pane.add(removeButton, 1, REMOVE_ROW);
+        pane.add(removeButton, 0, REMOVE_ROW);
         removeButton.setDisable(true);
         removeButton.setOnAction(event -> removeVolunteer());
 
-        pane.add(exitButton, 3, SAVE_ROW);
-        exitButton.setOnAction(e -> saveAndExit());
+        pane.add(saveExitButton, 4, SAVE_ROW);
+        saveExitButton.setOnAction(e -> saveAndExit());
 
         this.setRoot(pane);
     }
 
     private void saveAndExit(){
-        Controller.getInstance().saveData();
+        VolunteerController.getInstance().saveVolunteerData();
         System.exit(0);
     }
 
@@ -386,13 +394,10 @@ public class FosterVolunteerScene extends Scene {
         {
             ageVerifyErrLabel.setVisible(false);
             ageErrorLabel.setVisible(false);
+            volunteerList.add(0, new FosterVolunteer(firstName,lastName, age, phoneNumberFormatted, email, city,
+                    reason, animalType, availability, experience, startDate, endDate, housing, transportation));
+            volunteerLV.refresh();
         }
-        //Todo: add controller to volunteer List
-        new FosterVolunteer(firstName,lastName, age, phoneNumberFormatted, email, city,
-                reason, animalType, availability, experience, startDate, endDate, housing, transportation);
-
-        //Todo: ListView from volunteer list, from controller, CREATE!!!!!!!!!!
-        //volunteerListView.refresh();
     }
 
     private void experienceSelect(String newVal) {

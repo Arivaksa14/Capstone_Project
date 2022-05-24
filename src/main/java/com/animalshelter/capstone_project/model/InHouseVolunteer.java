@@ -6,7 +6,6 @@ import java.util.Objects;
 
 public class InHouseVolunteer extends Volunteer implements Comparable<Volunteer>, Serializable {
 
-
     private String mLocation;
     private String mDate;
     private String mNickName;
@@ -86,21 +85,22 @@ public class InHouseVolunteer extends Volunteer implements Comparable<Volunteer>
 
     @Override
     public String toString() {
-        return "InHouseVolunteer{" +
-                "mLocation='" + mLocation + '\'' +
-                ", mDate='" + mDate + '\'' +
-                ", mNickName='" + mNickName + '\'' +
-                ", mWalking=" + mWalking +
-                ", mFirstName='" + mFirstName + '\'' +
-                ", mLastName='" + mLastName + '\'' +
-                ", mAge=" + mAge +
-                ", formattedPhoneNumber='" + formattedPhoneNumber + '\'' +
-                ", mEmail='" + mEmail + '\'' +
-                ", mCity='" + mCity + '\'' +
-                ", mReason='" + mReason + '\'' +
-                ", mAnimalType='" + mAnimalType + '\'' +
-                ", mAvailability='" + mAvailability + '\'' +
-                ", mExperience='" + mExperience + '\'' +
-                '}';
+        return "In House Volunteer [ " +
+                "Location='" + mLocation +
+                ", Date='" + mDate +
+                ", NickName='" + mNickName +
+                ", Walking=" + mWalking +
+                ", First Name = " + mFirstName +
+                ", Last Name = " + mLastName +
+                ", Age = " + mAge +
+                ", Phone Number = " + formattedPhoneNumber +
+                ", Email= " + mEmail +
+                ", City = " + mCity +
+                ", Reason = " + mReason +
+                ", Animal Preference = " + mAnimalType +
+                ", Availability = " + mAvailability +
+                ", Volunteer Experience =" + mExperience +
+                " ]";
     }
 }
+
