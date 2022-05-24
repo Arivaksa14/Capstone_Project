@@ -17,9 +17,7 @@ public abstract class Volunteer implements Comparable<Volunteer>, Serializable {
     protected String mFirstName;
     protected String mLastName;
     protected int mAge;
-    protected Long mPhoneNumber;
-    protected String formattedPhoneNumber = String.valueOf(mPhoneNumber).replaceFirst
-            ("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+    protected String formattedPhoneNumber;// = String.valueOf(mPhoneNumber).replaceFirst ("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
     protected String mEmail;
     protected String mCity;
     protected String mReason;
@@ -64,14 +62,6 @@ public abstract class Volunteer implements Comparable<Volunteer>, Serializable {
 
     public void setAge(int age) {
         mAge = age;
-    }
-
-    public Long getPhoneNumber() {
-        return mPhoneNumber;
-    }
-
-    public void setPhoneNumber(Long phoneNumber) {
-        mPhoneNumber = phoneNumber;
     }
 
     public String getFormattedPhoneNumber() {
@@ -137,7 +127,6 @@ public abstract class Volunteer implements Comparable<Volunteer>, Serializable {
         Volunteer volunteer = (Volunteer) o;
         return mAge == volunteer.mAge && Objects.equals(mFirstName, volunteer.mFirstName) &&
                 Objects.equals(mLastName, volunteer.mLastName) &&
-                Objects.equals(mPhoneNumber, volunteer.mPhoneNumber) &&
                 Objects.equals(formattedPhoneNumber, volunteer.formattedPhoneNumber) &&
                 Objects.equals(mEmail, volunteer.mEmail) && Objects.equals(mCity, volunteer.mCity) &&
                 Objects.equals(mReason, volunteer.mReason) && Objects.equals(mAnimalType, volunteer.mAnimalType) &&
@@ -147,6 +136,6 @@ public abstract class Volunteer implements Comparable<Volunteer>, Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mFirstName, mLastName, mAge, mPhoneNumber, formattedPhoneNumber, mEmail, mCity, mReason, mAnimalType, mAvailability, mExperience);
+        return Objects.hash(mFirstName, mLastName, mAge, formattedPhoneNumber, mEmail, mCity, mReason, mAnimalType, mAvailability, mExperience);
     }
 }

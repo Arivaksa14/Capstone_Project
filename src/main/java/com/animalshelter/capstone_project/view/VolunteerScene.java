@@ -5,15 +5,19 @@ import com.animalshelter.capstone_project.model.InHouseVolunteer;
 import com.animalshelter.capstone_project.model.Volunteer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class VolunteerScene extends Scene {
 /*
@@ -50,6 +54,8 @@ public class VolunteerScene extends Scene {
     private ComboBox<String> volunteerTypeComboBox = new ComboBox<>();
     private String volunteerTypeSelected = "Foster";
 
+    private ColorPicker colorPicker = new ColorPicker();
+
     //TODO: complete once controller is set up with rest of class
     //private HelloController controller = HelloController.getInstance();
     /**
@@ -63,6 +69,14 @@ public class VolunteerScene extends Scene {
         pane.setHgap(10.0);
         pane.setVgap(5);
         pane.setPadding(new Insets(5));
+/*
+        pane.add(new Label("Choose a color for this backround :)"), 0, 10);
+
+        pane.add(colorPicker, 1, 10);
+        Color chosenColor = colorPicker.getValue().
+        pane.setBackground(new Background(new BackgroundFill(chosenColor, null, null)));
+
+ */
 
         volunteerImage.setImage(new Image("AnimalVolunteerPicResized.png"));
         volunteerImage.setFitWidth(WIDTH);
@@ -103,7 +117,6 @@ public class VolunteerScene extends Scene {
      * Creates new scene from volunteerTypeSelected
      */
     public void selectScene(String volunteerTypeSelected){
-
         if(volunteerTypeSelected.equalsIgnoreCase("Foster"))
             ViewNavigator.loadScene("Foster Volunteer Data Entry", new FosterVolunteerScene());
         else
@@ -121,52 +134,8 @@ public class VolunteerScene extends Scene {
     /**
      *
      */
-    /*
-    private void addVolunteer(){
-
-        String name = nameTF.getText();
-        nameErrLabel.setVisible(name.isEmpty());
-
-        String ageErrorCheck = ageTF.getText();
-        int age = Integer.parseInt(ageTF.getText());
-        ageErrorLabel.setVisible(ageErrorCheck.isEmpty());
-
-        String reason = reasonTF.getText();
-        reasonErrorLabel.setVisible(reason.isEmpty());
-
-        String animalType = animalSelected;
-        animalTypeErr.setVisible(animalType.isEmpty());
-
-        String startDate = fosterStartTF.getText();
-        fosterStartErr.setVisible(startDate.isEmpty());
-
-        String endDate = fosterEndTF.getText();
-        fosterEndErr.setVisible(endDate.isEmpty());
-
-        if(volunteerTypeSelected.equalsIgnoreCase("Foster"))
-            volunteersList.add(new FosterVolunteer(name, age, reason, animalType, startDate, endDate));
-
-        else {
-            String location = volunteerLocationTF.getText();
-            volunteerLocationErr.setVisible(location.isEmpty());
-
-            String timeslot = timeSlotTF.getText();
-            timeSlotErr.setVisible(timeslot.isEmpty());
-
-            String date = volunteerDateTF.getText();
-            volunteerDateErr.setVisible(date.isEmpty());
-
-            volunteersList.add(new InHouseVolunteer(name, age, reason, animalType, location, timeslot, date));
-        }
-        volunteerListView.refresh();
-    }
-
-     */
-
-    /**
-     *
-     */
     public static final String BINARY_FILE_VOLUNTEER = "volunteer.dat";
+    public static final String CSV_VOLUNTEER_FILE = "volunteerStartToImport.csv";
 
     /**
      *
@@ -175,7 +144,6 @@ public class VolunteerScene extends Scene {
         File volunteerBinaryFile = new File(BINARY_FILE_VOLUNTEER);
         return (volunteerBinaryFile.exists() && volunteerBinaryFile.length() >= 5L);
     }
-
 
 
     /**
@@ -197,18 +165,79 @@ public class VolunteerScene extends Scene {
         }
         return volunteers;
     }
+
+    public static ObservableList<Volunteer> populateFromCSVFile(){
+
+        ObservableList<Volunteer> allVolunteers = FXCollections.observableArrayList();
+
+        String firstName;
+        String lastName;
+        int age;
+        String phoneNumber;
+        String email;
+        String city;
+        String reason;
+        String animalType;
+        String availability;
+        String experience;
+        String startDateORLocation;
+        String endDateORDate;
+        String housingORNickname;
+        String transportationORwalkingString;
+        boolean transportationORwalkingboolean;
+
+        String line;
+        String [] parts;
+
+        try {
+            Scanner fileScanner = new Scanner(new File(CSV_VOLUNTEER_FILE));
+            // Skip the first line
+            // Loop through the file
+            fileScanner.nextLine(); // skip 1st line
+            while(fileScanner.hasNextLine()){
+                // read one line from the CSV
+                line = fileScanner.nextLine();
+                parts = line.split(",");
+                firstName = parts[0];
+                lastName = parts[1];
+                age = Integer.parseInt(parts[2]);
+                phoneNumber = parts[3];
+                email = parts[4];
+                city = parts[5];
+                reason = parts[6];
+                animalType = parts[7];
+                availability = parts[8];
+                experience = parts[9];
+                startDateORLocation = parts[10];
+                endDateORDate = parts[11];
+                housingORNickname = parts[12];
+                transportationORwalkingString = parts[13];
+                if(transportationORwalkingString.equalsIgnoreCase("True"))
+                    transportationORwalkingboolean = true;
+                else
+                    transportationORwalkingboolean = false;
+                allVolunteers.add(
+                        new InHouseVolunteer(firstName,lastName, age, phoneNumber, email, city, reason,
+                        animalType, availability, experience, startDateORLocation, endDateORDate, housingORNickname,
+                        transportationORwalkingboolean));
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return allVolunteers;
+    }
+
     /**
      *
      */
-    public static boolean writeToVolunteerBinary(ObservableList<Volunteer> volunteers){
+    public static boolean writeToVolunteerBinary(ObservableList<Volunteer> allVolunteers){
 
-        Volunteer[] array = new Volunteer[volunteers.size()];
+        Volunteer[] array = new Volunteer[allVolunteers.size()];
         // copy all the list data into the array
         for (int i = 0; i < array.length; i++) {
-            array[i] = volunteers.get(i);
+            array[i] = allVolunteers.get(i);
         }
-
-        // write to binary file
         try {
             ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(BINARY_FILE_VOLUNTEER));
             fileWriter.writeObject(array);

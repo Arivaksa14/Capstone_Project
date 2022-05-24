@@ -1,13 +1,19 @@
 package com.animalshelter.capstone_project.view;
 
+import com.animalshelter.capstone_project.controller.Controller;
 import com.animalshelter.capstone_project.model.FosterVolunteer;
 import com.animalshelter.capstone_project.model.InHouseVolunteer;
+import com.animalshelter.capstone_project.model.Volunteer;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class FosterVolunteerScene extends Scene {
     /*
@@ -31,8 +37,11 @@ public class FosterVolunteerScene extends Scene {
     public static final int DATE_END_ROW = 13;
     public static final int HOUSING_ROW = 14;
     public static final int TRANSPORTATION_ROW = 15;
-
+    public static final int REMOVE_ROW = 16;
     public static final int RESET_SUBMIT_ROW = 16;
+    public static final int RETURN_ROW = 16;
+    public static final int SAVE_ROW = 16;
+
 
 
     public static final String [] EXPERIENCE_CHOICES = {"None", "1 year", "2 years"};
@@ -43,12 +52,17 @@ public class FosterVolunteerScene extends Scene {
     public static final int WIDTH = 700;
     public static final int HEIGHT = 700;
 
+    private ListView<Volunteer> volunteerLV = new ListView<>();
+    private ObservableList<Volunteer> volunteerList;
+    private Volunteer selectedVolunteer;
+
 
     // General Buttons
     private Button resetButton = new Button("Reset Choices");
-    private Button addButton = new Button("Add to Schedule");
-    private Button nextButton = new Button("Next");
-    private Button submitButton = new Button("Submit");
+    private Button addFosterButton = new Button("+ Add Foster Volunteer");
+    private Button removeButton = new Button("- Remove Volunteer");
+    private Button returnButton = new Button("Return to Main Page");
+    private Button exitButton = new Button("Exit");
 
     // General Requirements
     private Label firstNameLabel = new Label("Volunteer First Name");
@@ -90,29 +104,28 @@ public class FosterVolunteerScene extends Scene {
     private Label volunteerAvailabilityLabel = new Label("Volunteer Availability");
     private ComboBox<String> volunteerAvailabilityCB = new ComboBox<>();
     private Label volunteerAvailabilityErr = new Label("Availability required");
-    private String volunteerAvailabilityString;
+    private String availabilitySelected;
 
     private Label experienceLabel = new Label("Volunteer Experience");
     private ComboBox<String> experienceCB = new ComboBox<>();
     private Label experienceErrLabel = new Label("Experience required");
-    private String ExperienceSelected;
+    private String experienceSelected;
 
     private Label phoneNumberLabel = new Label("Volunteer Phone#");
     private TextField phoneNumberTF = new TextField();
     private Label phoneErrLabel = new Label("Phone# required");
-    private String phoneNumberFormatted;
 
     // Foster Dedicated
     private Label fosterStartDateLabel = new Label("Foster Start Date");
     private Label fosterDateErr = new Label("Date Required");
     private DatePicker startDatePicker = new DatePicker();
-    private String startDateSelected;
     private Label fosterStartErr = new Label("Start Dated Required");
+    private String startDateSelected;
 
     private Label fosterEndDateLabel = new Label("Foster End Date");
     private DatePicker endDatePicker = new DatePicker();
-    private String endDateSelected;
     private Label fosterEndErr = new Label("End Date Required");
+    private String endDateSelected;
 
     private Label housingLabel = new Label("Volunteer Housing");
     private ComboBox<String> housingCB = new ComboBox<>();
@@ -191,7 +204,7 @@ public class FosterVolunteerScene extends Scene {
         // Foster Dedicated
         pane.add(volunteerAvailabilityLabel, 0, AVAILABILITY_ROW);
         volunteerAvailabilityCB.getItems().addAll( "Weekdays", "Weekends", "Flexible");
-        //volunteerAvailabilityCB.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> changeVolunteerTypeTF(newVal));
+        volunteerAvailabilityCB.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> availabilitySelect(newVal));
         pane.add(volunteerAvailabilityCB, 1, AVAILABILITY_ROW);
         volunteerAvailabilityCB.getSelectionModel().select(0);
 
@@ -202,7 +215,7 @@ public class FosterVolunteerScene extends Scene {
         pane.add(experienceLabel, 0, EXPERIENCE_ROW);
         experienceCB.getItems().addAll(EXPERIENCE_CHOICES);
         experienceCB.getSelectionModel().selectedItemProperty().addListener
-                ((obsVal, oldVal, newVal) -> animalSelected(newVal));
+                ((obsVal, oldVal, newVal) -> experienceSelect(newVal));
         experienceCB.getSelectionModel().select(0);
         pane.add(experienceCB, 1, EXPERIENCE_ROW);
         experienceErrLabel.setVisible(false);
@@ -221,7 +234,6 @@ public class FosterVolunteerScene extends Scene {
         startDatePicker.valueProperty().addListener
                 ((obsVal, oldVal, newVal) -> startDateSelect(String.valueOf(newVal)));
 
-
         pane.add(fosterEndDateLabel, 0, DATE_END_ROW);
         pane.add(endDatePicker, 1, DATE_END_ROW);
         pane.add(fosterEndErr, 2, DATE_END_ROW);
@@ -230,13 +242,13 @@ public class FosterVolunteerScene extends Scene {
         endDatePicker.valueProperty().addListener
                 ((obsVal, oldVal, newVal) -> endDateSelect(String.valueOf(newVal)));
 
-
         pane.add(housingLabel, 0, HOUSING_ROW);
         housingCB.getItems().addAll(HOUSING_CHOICES);
         housingCB.getSelectionModel().selectedItemProperty().addListener
                 ((obsVal, oldVal, newVal) -> housingSelect(newVal));
         housingCB.getSelectionModel().select(0);
         pane.add(housingCB, 1, HOUSING_ROW);
+        pane.add(housingErrLabel, 2, HOUSING_ROW);
         housingErrLabel.setVisible(false);
         housingErrLabel.setTextFill(Color.RED);
 
@@ -246,41 +258,45 @@ public class FosterVolunteerScene extends Scene {
                 ((obsVal, oldVal, newVal) -> transportationSelect(newVal));
         transportationCB.getSelectionModel().select(0);
         pane.add(transportationCB, 1, TRANSPORTATION_ROW);
+        pane.add(transportationErrLabel, 2, TRANSPORTATION_ROW);
         transportationErrLabel.setVisible(false);
         transportationErrLabel.setTextFill(Color.RED);
 
 
-        pane.add(resetButton, 0, RESET_SUBMIT_ROW);
+        // TODO: COMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //volunteerList = controller.getAllAnimals();
+        volunteerLV.setItems(volunteerList);
+        volunteerLV.setPrefWidth(WIDTH);
+        pane.add(volunteerLV, 0, 18, 4, 1);
+        volunteerLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
+
+        pane.add(resetButton, 2, RESET_SUBMIT_ROW);
         resetButton.setOnAction(e -> reset());
 
-        pane.add(submitButton, 4, RESET_SUBMIT_ROW);
-        submitButton.setOnAction(e -> addFosterVolunteer());
+        pane.add(addFosterButton, 4, RESET_SUBMIT_ROW);
+        addFosterButton.setOnAction(e -> addFosterVolunteer());
+
+        pane.add(returnButton, 0, RETURN_ROW);
+        returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
+
+        pane.add(removeButton, 1, REMOVE_ROW);
+        removeButton.setDisable(true);
+        removeButton.setOnAction(event -> removeVolunteer());
+
+        pane.add(exitButton, 3, SAVE_ROW);
+        exitButton.setOnAction(e -> saveAndExit());
 
         this.setRoot(pane);
     }
 
-    private void transportationSelect(String newVal) {
-
-        if (newVal.equalsIgnoreCase("yes"))
-            transportationCheck = true;
-        else
-            transportationCheck = false;
+    private void saveAndExit(){
+        Controller.getInstance().saveData();
+        System.exit(0);
     }
 
-    private void housingSelect(String newVal) {
-        housingSelected = newVal;
-    }
-
-    private void endDateSelect(String newVal) {
-        endDateSelected = newVal;
-    }
-
-    private void startDateSelect(String newVal) {
-        startDateSelected = newVal;
-    }
-
-    private void animalSelected(String newVal){
-        animalSelected = newVal;
+    private void selectVolunteer(Volunteer newVal){
+        selectedVolunteer = newVal;
+        removeButton.setDisable(selectedVolunteer == null);
     }
 
     private void reset() {
@@ -293,6 +309,15 @@ public class FosterVolunteerScene extends Scene {
         animalTypeCB.getSelectionModel().select(0);
         volunteerAvailabilityCB.getSelectionModel().select(0);
         phoneNumberTF.clear();
+    }
+
+    private void removeVolunteer(){
+
+        if(selectedVolunteer == null)
+            return;
+        volunteerList.remove(selectedVolunteer);
+        volunteerLV.refresh();
+        volunteerLV.getSelectionModel().select(-1);
     }
 
     private void addFosterVolunteer(){
@@ -317,18 +342,45 @@ public class FosterVolunteerScene extends Scene {
             ageVerifyErrLabel.setVisible(false);
             }
 
-        //ageErrorLabel.setVisible(ageErrorCheck.isEmpty());
+        Long phoneNumber = Long.parseLong(phoneNumberTF.getText());
+        String phoneNumberFormatted = String.valueOf(phoneNumber).replaceFirst
+                ("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+
         String reason = reasonTF.getText();
         reasonErrorLabel.setVisible(reason.isEmpty());
+
         String animalType = animalSelected;
         animalTypeErr.setVisible(animalType.isEmpty());
+
         String startDate = startDateSelected;
         fosterStartErr.setVisible(startDate.isEmpty());
+
         String endDate = endDateSelected;
         fosterEndErr.setVisible(endDate.isEmpty());
-        if(firstNameErrLabel.isVisible() || lastNameErrLabel.isVisible() || ageVerifyErrLabel.isVisible() || ageErrorLabel.isVisible() ||
-                reasonErrorLabel.isVisible() || animalTypeErr.isVisible() || animalTypeErr.isVisible() ||
-                fosterStartErr.isVisible() || fosterEndErr.isVisible())
+
+        String email = emailTF.getText();
+        emailErrorLabel.setVisible(email.isEmpty());
+
+        String city = cityTF.getText();
+        cityErrLabel.setVisible(city.isEmpty());
+
+        String availability = availabilitySelected;
+        volunteerAvailabilityErr.setVisible(availability.isEmpty());
+
+        String experience = experienceSelected;
+        experienceErrLabel.setVisible(experience.isEmpty());
+
+        String housing = housingSelected;
+        housingErrLabel.setVisible(housing.isEmpty());
+
+        boolean transportation = transportationCheck;
+
+        if(firstNameErrLabel.isVisible() || lastNameErrLabel.isVisible() || ageErrorLabel.isVisible() ||
+                phoneErrLabel.isVisible() || emailErrorLabel.isVisible() || cityErrLabel.isVisible() ||
+                reasonErrorLabel.isVisible() || animalTypeErr.isVisible() || volunteerAvailabilityErr.isVisible() ||
+                experienceErrLabel.isVisible() || fosterStartErr.isVisible() || fosterEndErr.isVisible() ||
+                housingErrLabel.isVisible() || transportationErrLabel.isVisible()
+        )
             return;
         else
         {
@@ -336,9 +388,51 @@ public class FosterVolunteerScene extends Scene {
             ageErrorLabel.setVisible(false);
         }
         //Todo: add controller to volunteer List
-        //volunteersList.add(new FosterVolunteer(name, age, reason, animalType, startDate, endDate));
+        new FosterVolunteer(firstName,lastName, age, phoneNumberFormatted, email, city,
+                reason, animalType, availability, experience, startDate, endDate, housing, transportation);
 
         //Todo: ListView from volunteer list, from controller, CREATE!!!!!!!!!!
         //volunteerListView.refresh();
     }
+
+    private void experienceSelect(String newVal) {
+        experienceSelected = newVal;
+    }
+
+    private void availabilitySelect(String newVal) {
+        availabilitySelected = newVal;
+    }
+
+    private void transportationSelect(String newVal) {
+
+        if (newVal.equalsIgnoreCase("yes")){
+            transportationCheck = true;
+            transportationErrLabel.setVisible(false);
+        }
+        else {
+            transportationCheck = false;
+            transportationErrLabel.setVisible(true);
+        }
+    }
+
+    private void housingSelect(String newVal) {
+        housingSelected = newVal;
+    }
+
+    private void startDateSelect(String newVal) {
+        LocalDate dateChosen = startDatePicker.getValue();
+        String dateFormatted = dateChosen.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+        startDateSelected = dateFormatted;
+    }
+
+    private void endDateSelect(String newVal) {
+        LocalDate dateChosen = endDatePicker.getValue();
+        String dateFormatted = dateChosen.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+        endDateSelected = dateFormatted;
+    }
+
+    private void animalSelected(String newVal){
+        animalSelected = newVal;
+    }
+
 }
