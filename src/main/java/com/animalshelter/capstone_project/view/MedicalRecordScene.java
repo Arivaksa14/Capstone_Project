@@ -1,5 +1,6 @@
 package com.animalshelter.capstone_project.view;
 
+import com.animalshelter.capstone_project.controller.Controller;
 import com.animalshelter.capstone_project.model.Animal;
 import com.animalshelter.capstone_project.model.MedicalRecord;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 public class MedicalRecordScene extends Scene {
-    public static final int WIDTH = 600;
+    public static final int WIDTH = 700;
     public static final int HEIGHT = 900;
 
     private ImageView medicalRecordImage = new ImageView();
@@ -25,6 +26,7 @@ public class MedicalRecordScene extends Scene {
     private Button addButton = new Button("Add Medical Record");
     private Button removeButton = new Button("Remove Medical Record");
     private Button returnButton = new Button("Return to Main Page");
+    private Button exitButton = new Button("Exit");
 
     private Label animalNameLabel = new Label("Pet's Name");
     private TextField animalNameTF = new TextField();
@@ -54,7 +56,7 @@ public class MedicalRecordScene extends Scene {
 
 
     //TODO: complete once controller is set up with rest of class
-    //private Controller controller = Controller.getInstance();
+    private Controller controller = Controller.getInstance();
 
     public MedicalRecordScene(){
         super(new GridPane(), WIDTH, HEIGHT);
@@ -78,12 +80,12 @@ public class MedicalRecordScene extends Scene {
 
         pane.add(animalTypeLabel, 0, 2);
         pane.add(animalTypeCB, 1, 2);
-        pane.add(animalTypeErrLabel, 2, 2);
         animalTypeCB.getItems().addAll("Cat", "Dog");
-        animalNameErrLabel.setTextFill(Color.RED);
-        animalNameErrLabel.setVisible(false);
-        //optional:
-        //animalTypeCB.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) ->changeNameLabel(newVal));
+        pane.add(animalTypeErrLabel, 2, 2);
+        animalTypeErrLabel.setTextFill(Color.RED);
+        animalTypeErrLabel.setVisible(false);
+
+        //animalTypeCB.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) ->selectedMedicalRecord(newVal));
 
         pane.add( new Label("Gender of pet"), 0, 3);
         pane.add(animalGenderCB, 1, 3);
@@ -127,10 +129,10 @@ public class MedicalRecordScene extends Scene {
         vaccinatedErrLabel.setVisible(false);
 
 
-        //Wire up the addButton to addLaureate method:
+        //Wire up the addButton to addMedicalRecord method:
         addButton.setOnAction(actionEvent -> addMedicalRecord());
-
         pane.add(addButton, 1, 17);
+
         medicalRecordListView.setPrefWidth(WIDTH);
         pane.add(medicalRecordListView, 0, 18, 3, 1);
 
@@ -140,16 +142,24 @@ public class MedicalRecordScene extends Scene {
         pane.add(resetButton, 1, 19);
         resetButton.setOnAction(e -> reset());
 
+        pane.add(exitButton, 1, 20);
+        exitButton.setOnAction(e -> saveAndExit());
+
         pane.add(returnButton, 2, 19);
         returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
 
-        // animalList = controller.getAllAnimals();
+        medicalRecordList = controller.getAllMedicalRecords();
         medicalRecordListView.setItems(medicalRecordList);
 
         medicalRecordListView.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectedMedicalRecord(newVal));
         removeButton.setDisable(true);
         this.setRoot(pane);
 
+    }
+
+    private void saveAndExit() {
+        Controller.getInstance().saveData();
+        System.exit(0);
     }
 
     private void reset() {
@@ -175,33 +185,39 @@ public class MedicalRecordScene extends Scene {
         medicalRecordListView.getSelectionModel().select(-1);
     }
 
-    //Ask: how to deal with error messages for required fields of Combo Boxes? Tried getSelectionModel().getSelectedItem().isEmpty
-    //and getItems().isEmpty(). Does not work
     private void addMedicalRecord() {
         //read from all text fields:
         String  animalName = animalNameTF.getText();
-        if(animalName.isEmpty())
-            animalNameErrLabel.setVisible(true);
+        animalNameErrLabel.setVisible(animalName.isEmpty());
 
         String animalType = animalTypeCB.getSelectionModel().getSelectedItem();
-        // if(animalTypeCB.getItems().isEmpty())
-        //animalTypeErrLabel.setVisible(true);
+        animalTypeErrLabel.setVisible(animalType == null);
 
-        char animalGender = animalGenderCB.getSelectionModel().getSelectedItem().charAt(0);
+        String animalGender = animalGenderCB.getSelectionModel().getSelectedItem();
+        animalGenderErrLabel.setVisible(animalGender == null);
 
         String animalAgeCat = animalAgeCatCB.getSelectionModel().getSelectedItem();
-        if(animalAgeCatCB.getItems().isEmpty())
-            animalAgeErrLabel.setVisible(true);
+        animalAgeErrLabel.setVisible(animalAgeCat == null);
 
         String declawed = declawedCB.getSelectionModel().getSelectedItem();
+        declawedErrLabel.setVisible(declawed == null);
 
         String healthIssues = healthIssuesTF.getText();
+        healthIssuesErrLabel.setVisible(healthIssues.isEmpty());
 
         String spayedOrNeutered = spayedOrNeuteredCB.getSelectionModel().getSelectedItem();
+        spayedOrNeuteredErrLabel.setVisible(spayedOrNeutered == null);
 
         String vaccinated = vaccinatedCB.getSelectionModel().getSelectedItem();
+        vaccinatedErrLabel.setVisible(vaccinated == null);
 
-        medicalRecordList.add(0, new MedicalRecord(animalName, animalType, animalGender, animalAgeCat, declawed, healthIssues, spayedOrNeutered, vaccinated));
+        if(animalNameErrLabel.isVisible() || animalTypeErrLabel.isVisible()
+                || animalGenderErrLabel.isVisible() || animalAgeErrLabel.isVisible()
+                || declawedErrLabel.isVisible() || healthIssuesErrLabel.isVisible()
+                || spayedOrNeuteredErrLabel.isVisible() || vaccinatedErrLabel.isVisible())
+            return;
+        else
+            medicalRecordList.add(0, new MedicalRecord(animalName, animalType, animalGender, animalAgeCat, declawed, healthIssues, spayedOrNeutered, vaccinated));
 
         // Now update the list view with a new animal
         medicalRecordListView.refresh();

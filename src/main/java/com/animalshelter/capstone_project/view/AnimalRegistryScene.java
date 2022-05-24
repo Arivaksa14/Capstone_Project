@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 
 
 public class AnimalRegistryScene extends Scene {
-    public static final int WIDTH = 600;
+    public static final int WIDTH = 700;
     public static final int HEIGHT = 900;
 
     private ImageView animalsImage = new ImageView();
@@ -25,7 +25,7 @@ public class AnimalRegistryScene extends Scene {
     private CatDog selectedAnimal;
 
     private Button resetButton = new Button("Reset");
-    private Button applyButton = new Button("Add pet");
+    private Button addButton = new Button("Add pet");
     private Button removeButton = new Button("Remove pet");
     private Button returnButton = new Button("Return to Main Page");
     private Button exitButton = new Button("Exit");
@@ -81,14 +81,10 @@ public class AnimalRegistryScene extends Scene {
 
         pane.add(animalTypeLabel, 0, 2);
         pane.add(animalTypeCB, 1, 2);
-        pane.add(animalTypeErrLabel, 2, 2);
         animalTypeCB.getItems().addAll("Cat", "Dog");
-        animalNameErrLabel.setTextFill(Color.RED);
-        animalNameErrLabel.setVisible(false);
-
-
-        //optional:
-        //animalTypeCB.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) ->changeNameLabel(newVal));
+        pane.add(animalTypeErrLabel, 2, 2);
+        animalTypeErrLabel.setTextFill(Color.RED);
+        animalTypeErrLabel.setVisible(false);
 
         pane.add( new Label("Gender of pet"), 0, 3);
         pane.add(animalGenderCB, 1, 3);
@@ -132,15 +128,14 @@ public class AnimalRegistryScene extends Scene {
         activeErrLabel.setTextFill(Color.RED);
         activeErrLabel.setVisible(false);
 
+        //Wire up the addButton to addAnimal method:
+        addButton.setOnAction(actionEvent -> addAnimal());
+        pane.add(addButton, 1, 17);
 
-        //Wire up the addButton to addLaureate method:
-        applyButton.setOnAction(actionEvent -> addAnimal());
-
-        pane.add(applyButton, 1, 17);
         animalListView.setPrefWidth(WIDTH);
         pane.add(animalListView, 0, 18, 3, 1);
-        pane.add(removeButton, 0, 19);
 
+        pane.add(removeButton, 0, 19);
         removeButton.setOnAction(e -> removeAnimal());
 
         pane.add(returnButton, 2, 19);
@@ -189,8 +184,6 @@ public class AnimalRegistryScene extends Scene {
         animalListView.getSelectionModel().select(-1);
     }
 
-    //Ask: how to deal with error messages for required fields of Combo Boxes? Tried getSelectionModel().getSelectedItem().isEmpty
-    //and getItems().isEmpty(). Does not work
     private void addAnimal() {
         //read from all text fields:
         String  animalName = animalNameTF.getText();
@@ -198,26 +191,32 @@ public class AnimalRegistryScene extends Scene {
             animalNameErrLabel.setVisible(true);
 
         String animalType = animalTypeCB.getSelectionModel().getSelectedItem();
-        System.out.println(animalType);
+        animalTypeErrLabel.setVisible(animalType == null);
 
-            animalTypeErrLabel.setVisible(animalType == null);
-
-        char animalGender = animalGenderCB.getSelectionModel().getSelectedItem().charAt(0);
+        String animalGender = animalGenderCB.getSelectionModel().getSelectedItem();
+        animalGenderErrLabel.setVisible(animalGender == null);
 
         String animalAgeCat = animalAgeCatCB.getSelectionModel().getSelectedItem();
-        if(animalAgeCatCB.getItems().isEmpty())
-            animalAgeErrLabel.setVisible(true);
+        animalAgeErrLabel.setVisible(animalAgeCat == null);
 
         String indoorOrOutdoor = indoorOrOutdoorCB.getSelectionModel().getSelectedItem();
+        indoorOrOutdoorErrLabel.setVisible(indoorOrOutdoor == null);
 
         String trained = trainedCB.getSelectionModel().getSelectedItem();
+        trainedErrLabel.setVisible(trained == null);
 
         String goodWithOtherAnimals = goodWithOtherAnimalsCB.getSelectionModel().getSelectedItem();
+        goodWithOtherAnimalsErrLabel.setVisible(goodWithOtherAnimals == null);
 
         String active = activeCB.getSelectionModel().getSelectedItem();
-
+        activeErrLabel.setVisible(active == null);
+        if(animalNameErrLabel.isVisible() || animalTypeErrLabel.isVisible()
+                || animalGenderErrLabel.isVisible() || animalAgeErrLabel.isVisible()
+                || indoorOrOutdoorErrLabel.isVisible() || trainedErrLabel.isVisible()
+                || goodWithOtherAnimalsErrLabel.isVisible() || activeErrLabel.isVisible())
+            return;
+        else
         animalList.add(0, new CatDog(animalName, animalType, animalGender, animalAgeCat, indoorOrOutdoor, trained, goodWithOtherAnimals, active));
-
         // Now update the list view with a new animal
         animalListView.refresh();
 
