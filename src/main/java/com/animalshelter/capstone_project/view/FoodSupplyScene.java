@@ -175,5 +175,4 @@ public class FoodSupplyScene extends Scene {
                             expireDate.getValue().format(DateTimeFormatter.ofPattern("M/d/yyyy"))));
         }
     }
-
 }

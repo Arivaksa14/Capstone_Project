@@ -12,6 +12,8 @@ public class Controller {
     private ObservableList<CatDog> mAllAnimalsList;
     private ObservableList<MedicalRecord> mAllMedicalRecordsList;
     private ObservableList<PerishableGoods> mPerishableGoods;
+    private ObservableList<NonPerishable> mNonPerishable;
+
     /**
      * Gets the one instance of the Controller.
      * @return The instance
@@ -39,7 +41,11 @@ public class Controller {
             } else {
                 theInstance.mPerishableGoods = Model.PGListFromTXTFile();
             }
-
+            if (Model.NPGBinaryFileHasData()) {
+                theInstance.mNonPerishable = Model.NPGListFromBinaryFile();
+            } else {
+                theInstance.mNonPerishable = Model.NPGListFromTXTFile();
+            }
         }
         return theInstance;
     }
@@ -60,6 +66,9 @@ public class Controller {
     public  ObservableList<PerishableGoods> getAllPG() {
         return mPerishableGoods;
     }
+    public  ObservableList<NonPerishable> getAllNPG() {
+        return mNonPerishable;
+    }
 
     /**
      * Makes a request for the model to save all the animals data (the list of all animals) to
@@ -69,6 +78,7 @@ public class Controller {
         Model.writeDataToAnimalsBinaryFile(mAllAnimalsList);
         Model.writeDataToMedicalRecordsBinaryFile(mAllMedicalRecordsList);
         Model.writeDataToPGBinaryFile(mPerishableGoods);
+        Model.writeDataToNPGBinaryFile(mNonPerishable);
     }
 
 

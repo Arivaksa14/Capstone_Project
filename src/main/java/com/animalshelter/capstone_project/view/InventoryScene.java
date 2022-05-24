@@ -1,6 +1,5 @@
 package com.animalshelter.capstone_project.view;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -13,7 +12,7 @@ public class InventoryScene extends Scene {
     private ComboBox<String> supplyTypeCB = new ComboBox<>();
     private Button addButton = new Button("Manage");
     private Button returnButton = new Button("Return to Main Page");
-    private ImageView ohCat = new ImageView();
+    private ImageView foodOrToy = new ImageView();
 
     public InventoryScene() {
         super(new GridPane(), WIDTH, HEIGHT);
@@ -25,8 +24,8 @@ public class InventoryScene extends Scene {
         pane.add(returnButton, 0, 0);
         returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
 
-        ohCat.setImage(new Image("HungryCat.jpg"));
-        pane.add(ohCat, 0, 1, 1, 20);
+        foodOrToy.setImage(new Image("HungryCat.jpg"));
+        pane.add(foodOrToy, 0, 1, 1, 20);
 
 
         pane.add(new Label("Type:"), 2, 1);
@@ -34,6 +33,7 @@ public class InventoryScene extends Scene {
 
         supplyTypeCB.getItems().addAll("Perishable Goods","Non-Perishable Goods");
         supplyTypeCB.getSelectionModel().select(0);
+        supplyTypeCB.getSelectionModel().selectedItemProperty().addListener((obsVal,oldVal,newVal)-> changeImage(newVal));
 
         pane.add(addButton,3,2);
         addButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", manageInventory(supplyTypeCB.getSelectionModel().getSelectedItem())));
@@ -41,6 +41,12 @@ public class InventoryScene extends Scene {
     }
     public Scene manageInventory(String s){
         if (s=="Perishable Goods") return new FoodSupplyScene();
-        else return new FoodSupplyScene();
+        else return new NonPGScene();
+    }
+    private void changeImage(String newVal) {
+        if (newVal.equals("Perishable Goods"))
+            foodOrToy.setImage(new Image("HungryCat.jpg"));
+        else
+            foodOrToy.setImage(new Image("PlayfulDog.jpg"));
     }
 }
