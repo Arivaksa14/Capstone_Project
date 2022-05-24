@@ -25,11 +25,14 @@ public class InventoryScene extends Scene {
         supplyTypeCB.getSelectionModel().select(0);
 
         pane.add(addButton,1,2);
-        addButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", manageInventory(supplyTypeCB.getSelectionModel().getSelectedItem())));
+        //addButton.setOnAction(e -> ViewNavigator.loadScene("Manage Inventory", manageInventory(supplyTypeCB.getSelectionModel().getSelectedItem())));
         this.setRoot(pane);
     }
+    /*
     public Scene manageInventory(String s){
         if (s=="Perishable Goods") return new FoodSupplyScene();
         else return new OtherSupplyScene();
     }
+
+     */
 }

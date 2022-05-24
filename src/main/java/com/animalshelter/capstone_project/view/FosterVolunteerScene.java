@@ -1,12 +1,10 @@
 package com.animalshelter.capstone_project.view;
 
-import com.animalshelter.capstone_project.controller.Controller;
+import com.animalshelter.capstone_project.controller.VolunteerController;
 import com.animalshelter.capstone_project.model.FosterVolunteer;
-import com.animalshelter.capstone_project.model.InHouseVolunteer;
 import com.animalshelter.capstone_project.model.Volunteer;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -53,6 +51,8 @@ public class FosterVolunteerScene extends Scene {
     public static final int HEIGHT = 700;
 
     private ListView<Volunteer> volunteerLV = new ListView<>();
+
+    private VolunteerController controller = VolunteerController.getInstance();
     private ObservableList<Volunteer> volunteerList;
     private Volunteer selectedVolunteer;
 
@@ -62,7 +62,7 @@ public class FosterVolunteerScene extends Scene {
     private Button addFosterButton = new Button("+ Add Foster Volunteer");
     private Button removeButton = new Button("- Remove Volunteer");
     private Button returnButton = new Button("Return to Main Page");
-    private Button exitButton = new Button("Exit");
+    private Button saveExitButton = new Button("Save & Exit");
 
     // General Requirements
     private Label firstNameLabel = new Label("Volunteer First Name");
@@ -93,7 +93,6 @@ public class FosterVolunteerScene extends Scene {
     private Label volunteerTypeLabel = new Label("Volunteer Foster or In House?");
     private ComboBox<String> volunteerTypeComboBox = new ComboBox<>();
     private String volunteerTypeSelected = "Foster";
-
 
  */
     private Label animalTypeLabel = new Label("Volunteer Animal Category");
@@ -211,7 +210,6 @@ public class FosterVolunteerScene extends Scene {
         pane.add(volunteerAvailabilityErr, 2, AVAILABILITY_ROW);
         volunteerAvailabilityErr.setVisible(false);
 
-
         pane.add(experienceLabel, 0, EXPERIENCE_ROW);
         experienceCB.getItems().addAll(EXPERIENCE_CHOICES);
         experienceCB.getSelectionModel().selectedItemProperty().addListener
@@ -262,10 +260,9 @@ public class FosterVolunteerScene extends Scene {
         transportationErrLabel.setVisible(false);
         transportationErrLabel.setTextFill(Color.RED);
 
-
-        // TODO: COMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //volunteerList = controller.getAllAnimals();
+        volunteerList = controller.getAllVolunteers();
         volunteerLV.setItems(volunteerList);
+
         volunteerLV.setPrefWidth(WIDTH);
         pane.add(volunteerLV, 0, 18, 4, 1);
         volunteerLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
@@ -283,14 +280,14 @@ public class FosterVolunteerScene extends Scene {
         removeButton.setDisable(true);
         removeButton.setOnAction(event -> removeVolunteer());
 
-        pane.add(exitButton, 3, SAVE_ROW);
-        exitButton.setOnAction(e -> saveAndExit());
+        pane.add(saveExitButton, 3, SAVE_ROW);
+        saveExitButton.setOnAction(e -> saveAndExit());
 
         this.setRoot(pane);
     }
 
     private void saveAndExit(){
-        Controller.getInstance().saveData();
+        VolunteerController.getInstance().saveVolunteerData();
         System.exit(0);
     }
 
@@ -386,13 +383,10 @@ public class FosterVolunteerScene extends Scene {
         {
             ageVerifyErrLabel.setVisible(false);
             ageErrorLabel.setVisible(false);
+            volunteerList.add(0, new FosterVolunteer(firstName,lastName, age, phoneNumberFormatted, email, city,
+                    reason, animalType, availability, experience, startDate, endDate, housing, transportation));
+            volunteerLV.refresh();
         }
-        //Todo: add controller to volunteer List
-        new FosterVolunteer(firstName,lastName, age, phoneNumberFormatted, email, city,
-                reason, animalType, availability, experience, startDate, endDate, housing, transportation);
-
-        //Todo: ListView from volunteer list, from controller, CREATE!!!!!!!!!!
-        //volunteerListView.refresh();
     }
 
     private void experienceSelect(String newVal) {

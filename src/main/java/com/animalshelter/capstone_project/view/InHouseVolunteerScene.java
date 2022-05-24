@@ -1,7 +1,7 @@
 package com.animalshelter.capstone_project.view;
 
-import com.animalshelter.capstone_project.controller.Controller;
-import com.animalshelter.capstone_project.model.CatDog;
+import com.animalshelter.capstone_project.controller.VolunteerController;
+import com.animalshelter.capstone_project.model.InHouseVolunteer;
 import com.animalshelter.capstone_project.model.Volunteer;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -44,8 +44,12 @@ public class InHouseVolunteerScene extends Scene {
     private ImageView volunteerInHouseImage = new ImageView();
 
     private ListView<Volunteer> volunteerLV = new ListView<>();
+
+    private VolunteerController controller = VolunteerController.getInstance();
     private ObservableList<Volunteer> volunteerList;
     private Volunteer selectedVolunteer;
+
+
     //TODO: COMPLETE!!!!!!!!!!!!!!!!!!!!!!
     //private Controller controller = Controller.getInstance();
 
@@ -53,7 +57,7 @@ public class InHouseVolunteerScene extends Scene {
     private Button addInHouseVolunteerButton = new Button("+ Add In House Volunteer");
     private Button removeButton = new Button("- Remove Volunteer");
     private Button returnButton = new Button("Return to Main Page");
-    private Button exitButton = new Button("Exit");
+    private Button saveExitButton = new Button("Save & Exit");
 
     private Label firstNameLabel = new Label("Volunteer First Name");
     private TextField firstNameTF = new TextField();
@@ -235,8 +239,9 @@ public class InHouseVolunteerScene extends Scene {
         datePicker.valueProperty().addListener
                 ((obsVal, oldVal, newVal) -> DateSelected(String.valueOf(newVal)));
         // TODO: COMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //volunteerList = controller.getAllAnimals();
+        volunteerList = controller.getAllVolunteers();
         volunteerLV.setItems(volunteerList);
+
         volunteerLV.setPrefWidth(WIDTH);
         pane.add(volunteerLV, 0, 18, 3, 1);
         volunteerLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
@@ -255,13 +260,13 @@ public class InHouseVolunteerScene extends Scene {
         removeButton.setDisable(true);
         removeButton.setOnAction(event -> removeVolunteer());
 
-        pane.add(exitButton, 3, EXIT_ROW);
-        exitButton.setOnAction(e -> saveAndExit());
+        pane.add(saveExitButton, 3, EXIT_ROW);
+        saveExitButton.setOnAction(e -> saveAndExit());
         this.setRoot(pane);
     }
 
     private void saveAndExit(){
-        Controller.getInstance().saveData();
+        VolunteerController.getInstance().saveVolunteerData();
         System.exit(0);
     }
 
@@ -351,11 +356,15 @@ public class InHouseVolunteerScene extends Scene {
                 nickNameErrLabel.isVisible() || walkingErrLabel.isVisible()
         )
             return;
-        //else
-        //Todo: add controller to volunteer List
-        // volunteersList.add(new InHouseVolunteer(firstName,lastName, age, phoneNumberFormatted,
-        // email, city, reason, animalType, availability, experience, location, date, nickName, walking));
+        else{
+            ageVerifyErrLabel.setVisible(false);
+            ageErrorLabel.setVisible(false);
 
+            volunteerList.add(new InHouseVolunteer(firstName,lastName, age, phoneNumberFormatted,
+                    email, city, reason, animalType, availability, experience, location, date, nickName, walking));
+            volunteerLV.refresh();
+        }
+        //Todo: add controller to volunteer List
         //Todo: ListView from volunteer list, from controller, CREATE!!!!!!!!!!
         //volunteerListView.refresh();
 
