@@ -85,8 +85,6 @@ public class MedicalRecordScene extends Scene {
         animalTypeErrLabel.setTextFill(Color.RED);
         animalTypeErrLabel.setVisible(false);
 
-        //animalTypeCB.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) ->selectedMedicalRecord(newVal));
-
         pane.add( new Label("Gender of pet"), 0, 3);
         pane.add(animalGenderCB, 1, 3);
         animalGenderCB.getItems().addAll("F","M");
@@ -103,7 +101,7 @@ public class MedicalRecordScene extends Scene {
 
         pane.add(new Label("Declawed"), 0, 5);
         pane.add(declawedCB, 1, 5);
-        declawedCB.getItems().addAll("Yes", "No");
+        declawedCB.getItems().addAll("Yes", "No", "N/A");
         pane.add(declawedErrLabel, 2, 5);
         declawedErrLabel.setTextFill(Color.RED);
         declawedErrLabel.setVisible(false);
@@ -142,7 +140,7 @@ public class MedicalRecordScene extends Scene {
         pane.add(resetButton, 1, 19);
         resetButton.setOnAction(e -> reset());
 
-        pane.add(exitButton, 1, 20);
+        pane.add(exitButton, 3, 19);
         exitButton.setOnAction(e -> saveAndExit());
 
         pane.add(returnButton, 2, 19);

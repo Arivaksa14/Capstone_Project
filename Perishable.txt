@@ -1,0 +1,62 @@
+Item#	Category	Product Name	Vendor	Price	Spec	Expiration Date
+228501	Dog Treats	SmartBones SmartSticks Peanut Butter Chews Dog Treats	SmartBones	6.79	5 Count	5/20/2023
+228502	Dog Treats	SmartBones SmartSticks Peanut Butter Chews Dog Treats	SmartBones	11.99	10 Count	5/20/2023
+228503	Dog Treats	SmartBones SmartSticks Peanut Butter Chews Dog Treats	SmartBones	12.99	12 Count	5/20/2023
+228504	Dog Treats	SmartBones SmartSticks Peanut Butter Chews Dog Treats	SmartBones	20.99	25 Count	5/20/2023
+228505	Dog Treats	SmartBones SmartSticks Peanut Butter Chews Dog Treats	SmartBones	38.97	36 Count	5/20/2023
+228506	Dog Treats	"True Acre Foods Rawhide-Free Rolled Sticks, Hip & Joint Chicken Flavor Treats"	True Acre Foods	8.99	16 Count	1/15/2023
+228507	Dog Treats	"True Acre Foods Rawhide-Free Rolled Sticks, Skin & Coat Chicken Flavor Treats"	True Acre Foods	8.99	16 Count	1/15/2023
+228508	Dog Treats	"True Acre Foods All-Natural Dental Chew Sticks, Original Flavor"	True Acre Foods	13.5	32 Count	1/15/2023
+228509	Dog Treats	"True Acre Foods, All-Natural Dental Chew Sticks, Peanut Butter Flavor"	True Acre Foods	13.5	32 Count	1/15/2023
+228510	Dog Treats	Shameless Pets We Be Salmon Calming Chews Dog Supplement	Shameless Pets	14.99	90 Count	1/15/2023
+228511	Dog Treats	Shameless Pets Soft Baked Blueberried Treasure Flavor Grain-Free Dog Treats	Shameless Pets	5.99	6-oz Bag	1/15/2023
+228512	Dog Treats	Shameless Pets Soft Baked Pumpkin Nut Partay Flavor Grain-Free Dog Treats	Shameless Pets	5.99	6-oz Bag	1/15/2023
+228513	Dog Treats	Shameless Pets Soft Baked Bananas for Bacon Flavor Grain-Free Dog Treats	Shameless Pets	5.99	6-oz Bag	1/15/2023
+228514	Dog Treats	American Journey Peanut Butter Recipe Grain-Free Oven Baked Crunchy Biscuit Dog Treats	American Journey	3.74	8-oz Bag	1/15/2023
+228515	Dog Treats	American Journey Peanut Butter Recipe Grain-Free Oven Baked Crunchy Biscuit Dog Treats	American Journey	4.99	16-oz Bag	1/15/2023
+228516	Dog Treats	"Blue Buffalo Health Bars Baked with Bacon, Egg & Cheese Dog Treats"	Blue Buffalo	6.49	16-oz Bag	3/18/2024
+228517	Dog Treats	"Blue Buffalo Health Bars Baked with Bacon, Egg & Cheese Dog Treats"	Blue Buffalo	20.99	3.5-lb Box	3/18/2024
+228518	Dog Treats	Blue Buffalo Health Bars Baked with Apples & Yogurt Dog Treats	Blue Buffalo	6.49	16-oz Bag	3/18/2024
+228519	Dog Treats	Blue Buffalo Health Bars Baked with Apples & Yogurt Dog Treats	Blue Buffalo	20.99	3.5-lb Box	3/18/2024
+288600	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Chicken & Brown Rice Recipe Dry Dog Food	Blue Buffalo	17.99	5-lb bag	3/18/2024
+288601	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Chicken & Brown Rice Recipe Dry Dog Food	Blue Buffalo	36.99	15-lb bag	3/18/2024
+288602	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Chicken & Brown Rice Recipe Dry Dog Food	Blue Buffalo	47.99	24-lb bag	3/18/2024
+288603	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Chicken & Brown Rice Recipe Dry Dog Food	Blue Buffalo	62.99	30-lb bag	3/18/2024
+288604	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Chicken & Brown Rice Recipe Dry Dog Food	Blue Buffalo	69.99	34-lb bag	3/18/2024
+288605	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Lamb & Brown Rice Recipe Dry Dog Food	Blue Buffalo	17.99	5-lb bag	3/18/2024
+288606	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Lamb & Brown Rice Recipe Dry Dog Food	Blue Buffalo	36.99	15-lb bag	3/18/2024
+288607	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Lamb & Brown Rice Recipe Dry Dog Food	Blue Buffalo	47.99	24-lb bag	3/18/2024
+288608	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Lamb & Brown Rice Recipe Dry Dog Food	Blue Buffalo	62.99	30-lb bag	3/18/2024
+288609	Dog Food (Dry)	Blue Buffalo Life Protection Formula Adult Lamb & Brown Rice Recipe Dry Dog Food	Blue Buffalo	69.99	34-lb bag	3/18/2024
+288610	Dog Food (Dry)	American Journey Lamb & Sweet Potato Recipe Grain-Free Dry Dog Food	American Journey	16.99	4-lb bag	3/18/2024
+288611	Dog Food (Dry)	American Journey Lamb & Sweet Potato Recipe Grain-Free Dry Dog Food	American Journey	34.99	12-lb bag	3/18/2024
+288612	Dog Food (Dry)	American Journey Lamb & Sweet Potato Recipe Grain-Free Dry Dog Food	American Journey	49.99	24-lb bag	3/18/2024
+288613	Dog Food (Dry)	"American Journey Active Life Formula Salmon, Brown Rice & Vegetables Recipe Dry Dog Food"	American Journey	11.99	4-lb bag	3/18/2024
+288614	Dog Food (Dry)	"American Journey Active Life Formula Salmon, Brown Rice & Vegetables Recipe Dry Dog Food"	American Journey	29.99	14-lb bag	3/18/2024
+288615	Dog Food (Dry)	"American Journey Active Life Formula Salmon, Brown Rice & Vegetables Recipe Dry Dog Food"	American Journey	49.99	28-lb bag	3/18/2024
+288616	Dog Food (Wet)	Pedigree Chopped Ground Dinner Variety Pack With Beef & Chicken Canned Dog Food	Pedigree	14.99	case of 12 (13.2-oz)	12/22/2022
+288617	Dog Food (Wet)	Pedigree Chopped Ground Dinner T-bone Steak Flavor Canned Dog Food	Pedigree	16.2	case of 12 (13.2-oz)	12/22/2022
+288618	Dog Food (Wet)	Purina Beneful IncrediBites Variety Pack Canned Dog Food	Purina Beneful	9.4	case of 12 (3-oz can)	12/22/2022
+288619	Dog Food (Wet)	Purina Beneful IncrediBites Variety Pack Canned Dog Food	Purina Beneful	23.5	case of 30 (3-oz can)	12/22/2022
+288620	Dog Food (Wet)	"Purina Beneful Medleys Tuscan, Romana & Mediterranean Style Variety Pack Canned Dog Food"	Purina Beneful	9.4	case of 12 (3-oz can)	12/22/2022
+288621	Dog Food (Wet)	"Purina Beneful Medleys Tuscan, Romana & Mediterranean Style Variety Pack Canned Dog Food"	Purina Beneful	23.5	case of 30 (3-oz can)	12/22/2022
+579442	Cat Food (Wet)	Fancy Feast Gravy Lovers Poultry & Beef Feast Variety Pack Canned Cat Food	Fancy Feast	19.2	case of 24 (3-oz can)	12/22/2022
+579443	Cat Food (Wet)	Fancy Feast Gravy Lovers Poultry & Beef Feast Variety Pack Canned Cat Food	Fancy Feast	24	case of 30 (3-oz can)	12/22/2022
+579444	Cat Food (Wet)	Fancy Feast Grilled Seafood Feast Variety Pack Canned Cat Food	Fancy Feast	19.2	case of 24 (3-oz can)	12/22/2022
+579445	Cat Food (Wet)	Fancy Feast Grilled Seafood Feast Variety Pack Canned Cat Food	Fancy Feast	24	case of 30 (3-oz can)	12/22/2022
+579446	Cat Food (Wet)	Fancy Feast Gravy Lovers Poultry & Beef Feast Variety Pack Canned Cat Food	Fancy Feast	19.2	case of 24 (3-oz can)	12/22/2022
+579447	Cat Food (Wet)	Fancy Feast Gravy Lovers Poultry & Beef Feast Variety Pack Canned Cat Food	Fancy Feast	24	case of 30 (3-oz can)	12/22/2022
+579448	Cat Food (Wet)	Friskies Pate Seafood & Chicken Variety Pack Canned Cat Food	Friskies	28	case of 40 (5.5-oz)	12/22/2022
+579449	Cat Food (Wet)	Friskies Classic Pate Variety Pack Canned Cat Food	Friskies	16.8	case of 24 (5.5-oz)	12/22/2022
+579450	Cat Food (Wet)	Friskies Chicken Lovers Variety Pack Canned Cat Food	Friskies	22.4	case of 32 (5.5-oz)	12/22/2022
+579451	Cat Food (Wet)	Friskies Surfin' & Turfin' Favorites Variety Pack Canned Cat Food	Friskies	28	case of 40 (5.5-oz)	12/22/2022
+579452	Cat Food (Dry)	Meow Mix Original Choice Dry Cat Food	Meow Mix	4.99	3.15-lb bag	12/22/2022
+579453	Cat Food (Dry)	Meow Mix Original Choice Dry Cat Food	Meow Mix	9.89	6.3-lb bag	12/22/2022
+579454	Cat Food (Dry)	Meow Mix Original Choice Dry Cat Food	Meow Mix	14.99	16-lb bag	12/22/2022
+579455	Cat Food (Dry)	Meow Mix Original Choice Dry Cat Food	Meow Mix	20.49	22-lb bag	12/22/2022
+579456	Cat Food (Dry)	Tiny Tiger Natural Indoor Recipe Chicken Flavor Dry Cat Food	Tiny Tiger	14.59	13-lb bag	12/22/2022
+579457	Cat Food (Dry)	Tiny Tiger Natural Indoor Recipe Chicken Flavor Dry Cat Food	Tiny Tiger	19.84	18-lb bag	12/22/2022
+579458	Cat Food (Dry)	Cat Chow Joint Health Essentials 7+ Immune Recipe Senior Dry Cat Food	Cat Chow	25.16	case of 4 (3.15-lb bag)	12/22/2022
+579459	Cat Treat	PureBites Chicken Breast Freeze-Dried Raw Cat Treats	PureBites	3.64	0.6-oz bag	12/22/2022
+579460	Cat Treat	PureBites Chicken Breast Freeze-Dried Raw Cat Treats	PureBites	5.89	1.09-oz bag	12/22/2022
+579461	Cat Treat	PureBites Chicken Breast Freeze-Dried Raw Cat Treats	PureBites	11.89	2.3-oz bag	12/22/2022
