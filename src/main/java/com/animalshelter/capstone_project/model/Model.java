@@ -24,6 +24,8 @@ import java.util.Scanner;
         public static final String TXT_FILE_PERISHABLE = "Perishable.txt";
         public static final String BINARY_FILE_NON_PERISHABLE = "NonPerishable.dat";
         public static final String TXT_FILE_NON_PERISHABLE = "NonPerishable.txt";
+        public static final String BINARY_FILE_VOLUNTEER = "volunteer.dat";
+        public static final String CSV_VOLUNTEER_FILE = "volunteerStartToImport.csv";
 
         /**
          * Determines whether the binary file exists and has data (size/length > 5L bytes).
@@ -327,27 +329,11 @@ import java.util.Scanner;
             return true;
         }
 
-
-
-
-        /**
-         *
-         */
-        public static final String BINARY_FILE_VOLUNTEER = "volunteer.dat";
-        public static final String CSV_VOLUNTEER_FILE = "volunteerStartToImport.csv";
-
-        /**
-         *
-         */
         public static boolean volunteerBinaryHasData(){
             File volunteerBinaryFile = new File(BINARY_FILE_VOLUNTEER);
             return (volunteerBinaryFile.exists() && volunteerBinaryFile.length() >= 5L);
         }
 
-
-        /**
-         *
-         */
         public static ObservableList<Volunteer> populateListVolunteerBinaryFile() {
 
             ObservableList<Volunteer> volunteers = FXCollections.observableArrayList();
@@ -427,9 +413,6 @@ import java.util.Scanner;
             return allVolunteers;
         }
 
-        /**
-         *
-         */
         public static boolean writeToVolunteerBinary(ObservableList<Volunteer> allVolunteers){
 
             Volunteer[] array = new Volunteer[allVolunteers.size()];
@@ -447,6 +430,5 @@ import java.util.Scanner;
             }
             return true;
         }
-
 
     }

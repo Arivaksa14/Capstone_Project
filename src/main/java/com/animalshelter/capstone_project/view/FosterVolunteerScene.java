@@ -279,7 +279,7 @@ public class FosterVolunteerScene extends Scene {
         pane.add(volunteerLV, 0, 18, 5, 1);
         volunteerLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
 
-        pane.add(resetButton, 1, RESET_SUBMIT_ROW);
+        pane.add(resetButton, 2, RESET_SUBMIT_ROW);
         resetButton.setOnAction(e -> reset());
 
         pane.add(addFosterButton, 4, RESET_SUBMIT_ROW);

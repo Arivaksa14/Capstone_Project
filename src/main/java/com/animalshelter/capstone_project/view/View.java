@@ -31,7 +31,6 @@ public class View extends Application {
      */
     @Override
     public void stop() throws Exception {
-        // TODO: Uncomment when finished with Controller.java
        Controller.getInstance().saveData();
     }
 

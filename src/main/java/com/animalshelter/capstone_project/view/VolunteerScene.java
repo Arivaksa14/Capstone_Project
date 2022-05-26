@@ -54,10 +54,9 @@ public class VolunteerScene extends Scene {
     private ListView<Volunteer> volunteerListView = new ListView<>();
     private Controller controller = Controller.getInstance();
 
-    private Button resetButton = new Button("Reset Choices");
-    private Button addButton = new Button("Add to Schedule");
     private Button nextButton = new Button("Next");
-    private Button submitButton = new Button("Submit");
+    private Button removeButton = new Button("- Volunteer");
+    private Button inLovingMemory = new Button("In Loving Memory");
 
 
     private Label selectVolunteerLabel = new Label("Please select to enter either Foster or In House Volunteer");
@@ -67,7 +66,8 @@ public class VolunteerScene extends Scene {
 
     private Label currentVolunteersLabel = new Label("Currently entered Volunteers:");
 
-    private ColorPicker colorPicker = new ColorPicker();
+    private Volunteer selectedVolunteer;
+
 
     /**
      *
@@ -81,19 +81,14 @@ public class VolunteerScene extends Scene {
         pane.setVgap(5);
         pane.setPadding(new Insets(5));
 
-        pane.add(new Label("Choose a color for this backround :)"), 0, 10);
-
-        //pane.add(colorPicker, 1, 10);
-        //Color chosenColor = colorPicker.getValue().
-        //pane.setBackground(new Background(new BackgroundFill(chosenColor, null, null)));
-        //pane.setBackground(new BackgroundFill(Color.CYAN, null, null));
+        pane.add(inLovingMemory, 3, 3);
+        inLovingMemory.setOnAction(e -> ViewNavigator.loadScene("In Loving Memory", new ParisScene()));
 
         volunteerImage.setImage(new Image("volunteerpic2.png"));
         volunteerImage.setFitWidth(WIDTH);
         pane.add(volunteerImage, 0, IMAGE_ROW, 3, 1);
 
         //pane.add(selectVolunteerLabel, 0, SELECT_VOLUNTEER_ROW);
-
         pane.add(volunteerTypeLabel, 0, VOLUNTEER_SELECTION_ROW);
 
         pane.add(currentVolunteersLabel, 0, CURRENT_VOLUNTEERS_ROW);
@@ -114,13 +109,33 @@ public class VolunteerScene extends Scene {
         volunteersList = controller.getAllVolunteers();
         volunteerListView.setItems(volunteersList);
         volunteerListView.setPrefWidth(WIDTH);
+        volunteerListView.getSelectionModel().selectedItemProperty().addListener
+                ((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
         pane.add(volunteerListView, 0, LV_ROW, 3, 1);
 
         pane.add(nextButton, 4, NEXT_BUTTON_ROW);
 
         nextButton.setOnAction(e -> selectScene(volunteerTypeSelected));
 
+        pane.add(removeButton, 0, 10);
+        removeButton.setDisable(true);
+        removeButton.setOnAction(event -> removeVolunteer());
+
         this.setRoot(pane);
+    }
+
+    private void removeVolunteer(){
+
+        if(selectedVolunteer == null)
+            return;
+        volunteersList.remove(selectedVolunteer);
+        volunteerListView.refresh();
+        volunteerListView.getSelectionModel().select(-1);
+    }
+
+    private void selectVolunteer(Volunteer newVal){
+        selectedVolunteer = newVal;
+        removeButton.setDisable(selectedVolunteer == null);
     }
 
     /**
@@ -148,35 +163,3 @@ public class VolunteerScene extends Scene {
     }
 
 }
-/*
-
-    private static Controller theInstance;
-    private ObservableList<Volunteer> mAllVolunteers;
-
-    private Controller(){}
-
-    public static Controller getInstance() {
-
-        // if instance is null, create a new obj
-        if(theInstance == null) {
-            theInstance = new Controller();
-            // Fill the allLaureates list w/ Data from the Model class
-            // if binary file has data, fill w/ binary file
-            if(VolunteerScene.volunteerBinaryHasData())
-                theInstance.mAllVolunteers = VolunteerScene.populateListVolunteerBinaryFile();
-            else
-                theInstance.mAllVolunteers.add(new Volunteer("Name", 1, "Reason", "Animal Type"));
-        }
-        return theInstance;
-    }
-
-    public ObservableList<Volunteer> getAllVolunteers(){
-        return mAllVolunteers;
-    }
-
-    public void saveData(){
-        VolunteerScene.writeToVolunteerBinary(mAllVolunteers);
-    }
-
-
- */

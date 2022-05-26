@@ -251,7 +251,7 @@ public class InHouseVolunteerScene extends Scene {
         pane.add(returnButton, 0, RETURN_ROW);
         returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
 
-        pane.add(resetButton, 1, RESET_SUBMIT_ROW);
+        pane.add(resetButton, 2, RESET_SUBMIT_ROW);
         resetButton.setOnAction(e -> reset());
 
         pane.add(addInHouseVolunteerButton, 4, RESET_SUBMIT_ROW);

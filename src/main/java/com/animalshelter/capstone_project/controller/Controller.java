@@ -49,6 +49,7 @@ public class Controller {
     }
     private Controller() {
     }
+
     public ObservableList<CatDog> getAllAnimals() {
         return mAllAnimalsList;
     }

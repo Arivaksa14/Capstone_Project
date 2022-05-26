@@ -121,11 +121,7 @@ public class FosterVolunteer extends Volunteer implements Comparable<Volunteer>,
     @Override
     public String toString() {
         return "Foster Volunteer [" +
-                " Start Date: " + mStartDate +
-                ", End Date: " + mEndDate +
-                ", Housing: " + mHousing +
-                ", Reliable Transportation: " + mReliableTransportation +
-                ", Name: " + mFirstName +
+                " Name: " + mFirstName +
                 " " + mLastName +
                 ", Age: " + mAge +
                 ", Phone Number: " + formattedPhoneNumber +
@@ -135,6 +131,10 @@ public class FosterVolunteer extends Volunteer implements Comparable<Volunteer>,
                 ", Animal Preference: " + mAnimalType +
                 ", Availability: " + mAvailability +
                 ", Foster Experience: " + mExperience +
+                ", Start Date: " + mStartDate +
+                ", End Date: " + mEndDate +
+                ", Housing: " + mHousing +
+                ", Reliable Transportation: " + mReliableTransportation +
                 " ]";
     }
 }
