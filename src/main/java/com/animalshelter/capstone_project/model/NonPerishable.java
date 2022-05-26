@@ -2,18 +2,18 @@ package com.animalshelter.capstone_project.model;
 import java.io.Serializable;
 import java.text.NumberFormat;
 
-public class PerishableGoods extends Inventory implements Comparable<Inventory>, Serializable {
-    String mCategory, mSpec,mExpDate;
+public class NonPerishable extends Inventory implements Comparable<Inventory>, Serializable {
+    String mCategory, mSize;
     NumberFormat currency = NumberFormat.getCurrencyInstance();
-    public PerishableGoods(int itemNo, String category, String productName, String vendor, double price, String spec, String expireDate) {
+    public NonPerishable(int itemNo, String category, String productName, String vendor, double price, String size) {
         super(itemNo, productName, vendor, price);
         mCategory = category;
-        mSpec = spec;
-        mExpDate = expireDate;
+        mSize = size;
     }
-    public int compareTo(PerishableGoods o) {
+    public int compareTo(NonPerishable o) {
         return super.compareTo(o);
     }
+
     @Override
     public String toString() {
         return "Item#: " + mItemNo +
@@ -21,7 +21,6 @@ public class PerishableGoods extends Inventory implements Comparable<Inventory>,
                 ", " + mProductName +
                 ", " + mVendor +
                 ", " + currency.format(mPrice) +
-                ", " + mSpec +
-                ", Expiration Date: " + mExpDate;
+                ", " + mSize;
     }
 }

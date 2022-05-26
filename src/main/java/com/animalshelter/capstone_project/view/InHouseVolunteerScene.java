@@ -1,5 +1,6 @@
 package com.animalshelter.capstone_project.view;
 
+import com.animalshelter.capstone_project.controller.Controller;
 import com.animalshelter.capstone_project.controller.VolunteerController;
 import com.animalshelter.capstone_project.model.InHouseVolunteer;
 import com.animalshelter.capstone_project.model.Volunteer;
@@ -46,7 +47,7 @@ public class InHouseVolunteerScene extends Scene {
 
     private ListView<Volunteer> volunteerLV = new ListView<>();
 
-    private VolunteerController controller = VolunteerController.getInstance();
+    private Controller controller = Controller.getInstance();
     private ObservableList<Volunteer> volunteerList;
     private Volunteer selectedVolunteer;
 
@@ -268,7 +269,7 @@ public class InHouseVolunteerScene extends Scene {
     }
 
     private void saveAndExit(){
-        VolunteerController.getInstance().saveVolunteerData();
+        Controller.getInstance().saveData();
         System.exit(0);
     }
 

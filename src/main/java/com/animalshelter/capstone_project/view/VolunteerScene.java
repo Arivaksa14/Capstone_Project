@@ -52,7 +52,7 @@ public class VolunteerScene extends Scene {
 
     private ObservableList<Volunteer> volunteersList;
     private ListView<Volunteer> volunteerListView = new ListView<>();
-    private VolunteerController controller = VolunteerController.getInstance();
+    private Controller controller = Controller.getInstance();
 
     private Button resetButton = new Button("Reset Choices");
     private Button addButton = new Button("Add to Schedule");

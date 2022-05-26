@@ -1,3 +1,61 @@
+/**
+ * Represents abstract Volunteer Class
+ *
+ * @author Jorge Garcia
+ *
+ **/
+
+/** UML CLASS DIAGRAM:
+ -----------------------------------------
+ Volunteer
+ -----------------------------------------
+ <data, i.e. variables>
+ # mFirstName: String
+ # mLastName: String
+ # mAge: int
+ # mEmail: String
+ # mReason: String
+ # mAnimalType: String
+ # mAvailability: String
+ # mExperience: String
+ #
+ # currency: NumberFormat
+ # number: NumberFormat
+ -----------------------------------------
+ <actions, i.e. methods>
+ + Full Constructor Volunteer(firstName: String, lastName: String, age: int, formattedPhoneNumber: String,
+                     email: String, city: String, reason: String, animalType: String,
+                     availability: String, experience: String)
+ +
+ + compareTo(other: Volunteer) : int
+ +
+ + getFirstName() : String
+ + getLastName() : String
+ + getAge() : int
+ + getFormattedPhoneNumber(): String
+ + getEmail(): String
+ + getCity(): String
+ + getReason(): String
+ + getAnimalType(): String
+ + getAvailability(): String
+ + getExperience(): String
+ +
+ + setFirstName(firstName: String) : void
+ + setLastName(lastName: String) : void
+ + setAge(age: int) : void
+ + setFormattedPhoneNumber(formattedPhoneNumber: String) : void
+ + setEmail(email: String) : void
+ + setCity(city: String) : void
+ + setReason(reason: String) : void
+ + setAnimalType(animalType: String) : void
+ + setAvailability(availability: String) : void
+ + setExperience(experience: String) : void
+ +
+ + equals (o: Object): Boolean
+ + hashCode() : int
+ --------------------------------------------------------------
+ */
+
 package com.animalshelter.capstone_project.model;
 
 import java.io.Serializable;
@@ -6,14 +64,11 @@ import java.util.Objects;
 
 public abstract class Volunteer implements Comparable<Volunteer>, Serializable {
 
+    /***** STATIC VARIABLES *****/
     protected static NumberFormat currency = NumberFormat.getCurrencyInstance();
     protected static NumberFormat number = NumberFormat.getNumberInstance();
 
-    @Override
-    public int compareTo(Volunteer other) {
-        return this.mAnimalType.compareTo(other.mAnimalType);
-    }
-
+    /***** INSTANCE VARIABLES *****/
     protected String mFirstName;
     protected String mLastName;
     protected int mAge;
@@ -25,6 +80,7 @@ public abstract class Volunteer implements Comparable<Volunteer>, Serializable {
     protected String mAvailability;
     protected String mExperience;
 
+    /***** CONSTRUCTOR *****/
     public Volunteer(String firstName, String lastName, int age, String formattedPhoneNumber,
                      String email, String city, String reason, String animalType,
                      String availability, String experience) {
@@ -40,82 +96,70 @@ public abstract class Volunteer implements Comparable<Volunteer>, Serializable {
         mExperience = experience;
     }
 
+    @Override
+    public int compareTo(Volunteer other) {
+        return this.mAnimalType.compareTo(other.mAnimalType);
+    }
+    /***** ACCESSORS *****/
     public String getFirstName() {
         return mFirstName;
     }
-
-    public void setFirstName(String firstName) {
-        mFirstName = firstName;
-    }
-
     public String getLastName() {
         return mLastName;
     }
-
-    public void setLastName(String lastName) {
-        mLastName = lastName;
-    }
-
     public int getAge() {
         return mAge;
     }
-
-    public void setAge(int age) {
-        mAge = age;
-    }
-
     public String getFormattedPhoneNumber() {
         return formattedPhoneNumber;
     }
-
-    public void setFormattedPhoneNumber(String formattedPhoneNumber) {
-        this.formattedPhoneNumber = formattedPhoneNumber;
-    }
-
     public String getEmail() {
         return mEmail;
     }
-
-    public void setEmail(String email) {
-        mEmail = email;
-    }
-
     public String getCity() {
         return mCity;
     }
-
-    public void setCity(String city) {
-        mCity = city;
-    }
-
     public String getReason() {
         return mReason;
     }
-
-    public void setReason(String reason) {
-        mReason = reason;
-    }
-
     public String getAnimalType() {
         return mAnimalType;
     }
-
-    public void setAnimalType(String animalType) {
-        mAnimalType = animalType;
-    }
-
     public String getAvailability() {
         return mAvailability;
     }
-
-    public void setAvailability(String availability) {
-        mAvailability = availability;
-    }
-
     public String getExperience() {
         return mExperience;
     }
 
+    /***** MUTATORS *****/
+    public void setFirstName(String firstName) {
+        mFirstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        mLastName = lastName;
+    }
+    public void setAge(int age) {
+        mAge = age;
+    }
+    public void setFormattedPhoneNumber(String formattedPhoneNumber) {
+        this.formattedPhoneNumber = formattedPhoneNumber;
+    }
+    public void setEmail(String email) {
+        mEmail = email;
+    }
+    public void setCity(String city) {
+        mCity = city;
+    }
+    public void setReason(String reason) {
+        mReason = reason;
+    }
+    public void setAnimalType(String animalType) {
+        mAnimalType = animalType;
+    }
+    public void setAvailability(String availability) {
+        mAvailability = availability;
+    }
     public void setExperience(String experience) {
         mExperience = experience;
     }

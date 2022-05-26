@@ -20,6 +20,10 @@ import java.util.Scanner;
         public static final String CSV_FILE_ANIMALS = "NewAnimals.csv";
         public static final String BINARY_FILE_MEDICAL_RECORD= "MedicalRecord.dat";
         public static final String CSV_FILE_MEDICAL_RECORD = "NewMedicalRecord.csv";
+        public static final String BINARY_FILE_PERISHABLE = "Perishable.dat";
+        public static final String TXT_FILE_PERISHABLE = "Perishable.txt";
+        public static final String BINARY_FILE_NON_PERISHABLE = "NonPerishable.dat";
+        public static final String TXT_FILE_NON_PERISHABLE = "NonPerishable.txt";
 
         /**
          * Determines whether the binary file exists and has data (size/length > 5L bytes).
@@ -186,6 +190,135 @@ import java.util.Scanner;
             try {
                 ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(BINARY_FILE_MEDICAL_RECORD));
                 fileWriter.writeObject(arrayMedicalRecords);
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        public static boolean PGBinaryFileHasData() {
+            File binaryFile = new File(BINARY_FILE_PERISHABLE);
+            return (binaryFile.exists() && binaryFile.length() >= 5L);
+        }
+        public static ObservableList<PerishableGoods> PGListFromTXTFile() {
+            ObservableList<PerishableGoods> allPG = FXCollections.observableArrayList();
+            String line;
+            String[] parts;
+            int itemNo;
+            String category,productName, vendor, spec, expireDate;
+            double price;
+
+            try {
+                Scanner fileScanner = new Scanner(new File(TXT_FILE_PERISHABLE));
+                fileScanner.nextLine();
+                while (fileScanner.hasNextLine()) {
+                    line = fileScanner.nextLine();
+                    parts = line.split("\t");
+                    itemNo = Integer.parseInt(parts[0]);
+                    category = parts[1];
+                    productName = parts[2];
+                    vendor = parts[3];
+                    price = Double.parseDouble(parts[4]);
+                    spec = parts[5];
+                    expireDate = parts[6];
+                    allPG.add(new PerishableGoods(itemNo,category,productName,vendor,price, spec, expireDate));
+                }
+                fileScanner.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return allPG;
+        }
+
+        public static ObservableList<PerishableGoods> PGListFromBinaryFile() {
+            ObservableList<PerishableGoods> allPG = FXCollections.observableArrayList();
+            try {
+                ObjectInputStream fileReader = new ObjectInputStream(new FileInputStream(BINARY_FILE_PERISHABLE));
+                PerishableGoods[] array = (PerishableGoods[]) fileReader.readObject();
+                for (PerishableGoods nl : array) {
+                    allPG.add(nl);
+                }
+                fileReader.close();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return allPG;
+        }
+
+        public static boolean writeDataToPGBinaryFile(ObservableList<PerishableGoods> allPerishableList) {
+            PerishableGoods[] array = new PerishableGoods[allPerishableList.size()];
+            for (int i = 0; i < array.length; i++) {
+                array[i] = allPerishableList.get(i);
+            }
+            try {
+                ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(BINARY_FILE_PERISHABLE));
+                fileWriter.writeObject(array);
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
+        public static boolean NPGBinaryFileHasData() {
+            File binaryFile = new File(BINARY_FILE_NON_PERISHABLE);
+            return (binaryFile.exists() && binaryFile.length() >= 5L);
+        }
+
+        public static ObservableList<NonPerishable> NPGListFromTXTFile() {
+            ObservableList<NonPerishable> allNPG = FXCollections.observableArrayList();
+            String line;
+            String[] parts;
+            int itemNo;
+            String category,productName, vendor, size;
+            double price;
+
+            try {
+                Scanner fileScanner = new Scanner(new File(TXT_FILE_NON_PERISHABLE));
+                fileScanner.nextLine();
+                while (fileScanner.hasNextLine()) {
+                    line = fileScanner.nextLine();
+                    parts = line.split("\t");
+                    itemNo = Integer.parseInt(parts[0]);
+                    category = parts[1];
+                    productName = parts[2];
+                    vendor = parts[3];
+                    price = Double.parseDouble(parts[4]);
+                    size = parts[5];
+                    allNPG.add(new NonPerishable(itemNo,category,productName,vendor,price, size));
+                }
+                fileScanner.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return allNPG;
+        }
+        public static ObservableList<NonPerishable> NPGListFromBinaryFile() {
+            ObservableList<NonPerishable> allNPG = FXCollections.observableArrayList();
+            try {
+                ObjectInputStream fileReader = new ObjectInputStream(new FileInputStream(BINARY_FILE_NON_PERISHABLE));
+                NonPerishable[] array = (NonPerishable[]) fileReader.readObject();
+                for (NonPerishable nl : array) {
+                    allNPG.add(nl);
+                }
+                fileReader.close();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return allNPG;
+        }
+
+        public static boolean writeDataToNPGBinaryFile(ObservableList<NonPerishable> allPerishableList) {
+            NonPerishable[] array = new NonPerishable[allPerishableList.size()];
+            for (int i = 0; i < array.length; i++) {
+                array[i] = allPerishableList.get(i);
+            }
+            try {
+                ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(BINARY_FILE_NON_PERISHABLE));
+                fileWriter.writeObject(array);
                 fileWriter.close();
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());
