@@ -339,9 +339,7 @@ import java.util.Scanner;
             ObservableList<Volunteer> volunteers = FXCollections.observableArrayList();
             try {
                 ObjectInputStream fileReader = new ObjectInputStream(new FileInputStream(BINARY_FILE_VOLUNTEER));
-                // read from binary file into an array
                 Volunteer[] array = (Volunteer[]) fileReader.readObject();
-                // loop through array and add each laureate to list
                 for(Volunteer nl : array)
                     volunteers.add(nl);
                 fileReader.close();
@@ -376,11 +374,9 @@ import java.util.Scanner;
 
             try {
                 Scanner fileScanner = new Scanner(new File(CSV_VOLUNTEER_FILE));
-                // Skip the first line
-                // Loop through the file
+
                 fileScanner.nextLine(); // skip 1st line
                 while(fileScanner.hasNextLine()){
-                    // read one line from the CSV
                     line = fileScanner.nextLine();
                     parts = line.split(",");
                     firstName = parts[0];
@@ -416,7 +412,6 @@ import java.util.Scanner;
         public static boolean writeToVolunteerBinary(ObservableList<Volunteer> allVolunteers){
 
             Volunteer[] array = new Volunteer[allVolunteers.size()];
-            // copy all the list data into the array
             for (int i = 0; i < array.length; i++) {
                 array[i] = allVolunteers.get(i);
             }

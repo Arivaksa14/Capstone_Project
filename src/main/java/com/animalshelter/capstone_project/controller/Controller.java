@@ -66,6 +66,7 @@ public class Controller {
     public ObservableList<Volunteer> getAllVolunteers(){
         return mAllVolunteers;
     }
+
     public void saveData() {
         Model.writeDataToAnimalsBinaryFile(mAllAnimalsList);
         Model.writeDataToMedicalRecordsBinaryFile(mAllMedicalRecordsList);

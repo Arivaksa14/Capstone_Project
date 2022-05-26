@@ -20,7 +20,7 @@
                      email: String, city: String, reason: String, animalType: String,
                      availability: String, experience: String, startDate: String,
                      endDate: String, housing: String, reliableTransportation: boolean)
- +
+
  + compareTo(o: Volunteer) : int
  +
  + getStartDate() : String

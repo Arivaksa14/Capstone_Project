@@ -18,7 +18,7 @@ public class ParisScene extends Scene {
     public static final Label loveYouParis = new Label("""
             In Loving Memory of Paris
             March 2006 - May 2022
-            You were the sweetest anyone could have ever asked for, you'll forever be missed.""");
+            You were the sweetest anyone could have ever asked for, you will forever be missed.""");
     public static final Button returnButton = new Button("Return to previous page");
 
     public ParisScene() {

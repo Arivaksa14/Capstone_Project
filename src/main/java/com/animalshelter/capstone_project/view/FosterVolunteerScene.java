@@ -17,13 +17,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class FosterVolunteerScene extends Scene {
-    /*
-    pane.add(datePicker, 0, 12);
-    private DatePicker datePicker = new DatePicker();
-    LocalDate dateChosen = datePicker.getValue();
-    String dateFormatted =dateChosen.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
 
-     */
     public static final int RETURN_ROW = 1;
     public static final int SAVE_ROW = 1;
     public static final int FIRST_NAME_ROW = 2;
@@ -42,10 +36,6 @@ public class FosterVolunteerScene extends Scene {
     public static final int TRANSPORTATION_ROW = 15;
     public static final int REMOVE_ROW = 16;
     public static final int RESET_SUBMIT_ROW = 16;
-
-
-
-
 
     public static final String [] EXPERIENCE_CHOICES = {"None", "1 year", "2 years"};
     public static final String [] TRANSPORTATION_CHOICES = {"Yes", "No"};
@@ -95,12 +85,7 @@ public class FosterVolunteerScene extends Scene {
     private Label reasonLabel = new Label("Volunteer Reason");
     private TextField reasonTF = new TextField();
     private Label reasonErrorLabel = new Label("Reason Optional");
-/*
-    private Label volunteerTypeLabel = new Label("Volunteer Foster or In House?");
-    private ComboBox<String> volunteerTypeComboBox = new ComboBox<>();
-    private String volunteerTypeSelected = "Foster";
 
- */
     private Label animalTypeLabel = new Label("Volunteer Animal Category");
     private ComboBox<String> animalTypeCB = new ComboBox<>();
     private Label animalTypeErr = new Label("Animal Selection required");
@@ -141,13 +126,6 @@ public class FosterVolunteerScene extends Scene {
     private ComboBox<String> transportationCB = new ComboBox<>();
     private Label transportationErrLabel =  new Label("Transportation Required");
     private boolean transportationCheck;
-
-/*
-    private Label fosterExperienceLabel = new Label("Previous Foster Experience?");
-    private ComboBox<String> fosterExperienceCB = new ComboBox<>();
-    private Label fosterExperienceErr = new Label("Experience choice required");
-    private String fosterExperienceString;
- */
 
     public FosterVolunteerScene() {
 
@@ -337,7 +315,6 @@ public class FosterVolunteerScene extends Scene {
 
         String lastName = lastNameTF.getText();
         lastNameErrLabel.setVisible(lastName.isEmpty());
-        //String ageErrorCheck = ageTF.getText();
         try{
             age = Integer.parseInt(ageTF.getText());
             if(age < 18) {

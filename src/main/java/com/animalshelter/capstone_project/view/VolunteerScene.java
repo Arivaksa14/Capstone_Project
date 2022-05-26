@@ -23,21 +23,8 @@ import java.io.*;
 import java.util.Scanner;
 
 public class VolunteerScene extends Scene {
-/*
-    public static void main(String[] args) {
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage primaryStage) {
-
-    }
-
- */
-    /**
-     * EASIER TO MANAGE SCENE POSITIONING
-     */
-
+    /*** EASIER TO MANAGE SCENE POSITIONING ***/
     public static final int IMAGE_ROW = 0;
     public static final int SELECT_VOLUNTEER_ROW = 2;
     public static final int FOSTER_CHOICE_CB_ROW = 3;
@@ -58,20 +45,13 @@ public class VolunteerScene extends Scene {
     private Button removeButton = new Button("- Volunteer");
     private Button inLovingMemory = new Button("In Loving Memory");
 
-
     private Label selectVolunteerLabel = new Label("Please select to enter either Foster or In House Volunteer");
     private Label volunteerTypeLabel = new Label();
     private ComboBox<String> volunteerTypeComboBox = new ComboBox<>();
     private String volunteerTypeSelected = "Foster";
-
     private Label currentVolunteersLabel = new Label("Currently entered Volunteers:");
-
     private Volunteer selectedVolunteer;
 
-
-    /**
-     *
-     */
     public VolunteerScene (){
 
         super(new GridPane(), WIDTH, HEIGHT);
@@ -88,9 +68,7 @@ public class VolunteerScene extends Scene {
         volunteerImage.setFitWidth(WIDTH);
         pane.add(volunteerImage, 0, IMAGE_ROW, 3, 1);
 
-        //pane.add(selectVolunteerLabel, 0, SELECT_VOLUNTEER_ROW);
         pane.add(volunteerTypeLabel, 0, VOLUNTEER_SELECTION_ROW);
-
         pane.add(currentVolunteersLabel, 0, CURRENT_VOLUNTEERS_ROW);
 
         HBox selectCBHbox = new HBox(selectVolunteerLabel, volunteerTypeComboBox);
@@ -101,7 +79,6 @@ public class VolunteerScene extends Scene {
         volunteerTypeComboBox.getItems().addAll( "Foster", "In House Volunteer");
         volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener
                 ((obsVal, oldVal, newVal) -> changeVolunteerTypeLabel(newVal));
-        //pane.add(volunteerTypeComboBox, 1, FOSTER_CHOICE_CB_ROW);
         volunteerTypeComboBox.getSelectionModel().selectedItemProperty().addListener
                 ((obsVal, oldVal, newVal) -> volunteerTypeSelection(newVal));
         volunteerTypeComboBox.getSelectionModel().select(0);
@@ -125,7 +102,6 @@ public class VolunteerScene extends Scene {
     }
 
     private void removeVolunteer(){
-
         if(selectedVolunteer == null)
             return;
         volunteersList.remove(selectedVolunteer);

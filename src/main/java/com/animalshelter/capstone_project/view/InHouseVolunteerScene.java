@@ -118,7 +118,6 @@ public class InHouseVolunteerScene extends Scene {
     private String locationSelected;
 
     private Label volunteerDateLabel = new Label("Date for volunteer");
-    //private TextField volunteerDateTF = new TextField();
     private Label volunteerDateErrLabel = new Label("Date Required");
     private DatePicker datePicker = new DatePicker();
     private String dateSelected = "01/01/1999";
@@ -240,13 +239,13 @@ public class InHouseVolunteerScene extends Scene {
         volunteerDateErrLabel.setVisible(false);
         datePicker.valueProperty().addListener
                 ((obsVal, oldVal, newVal) -> DateSelected(String.valueOf(newVal)));
-        // TODO: COMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         volunteerList = controller.getAllVolunteers();
         volunteerLV.setItems(volunteerList);
 
         volunteerLV.setPrefWidth(WIDTH);
         pane.add(volunteerLV, 0, 20, 5, 1);
-        volunteerLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
+        volunteerLV.getSelectionModel().selectedItemProperty().addListener
+                ((obsVal, oldVal, newVal) -> selectVolunteer(newVal));
 
         pane.add(returnButton, 0, RETURN_ROW);
         returnButton.setOnAction(e -> ViewNavigator.loadScene( "Animal Shelter Application", new MainScene()));
@@ -349,8 +348,6 @@ public class InHouseVolunteerScene extends Scene {
         nickNameErrLabel.setVisible(nickName.isEmpty());
 
         Boolean walking = walkingSelected;
-        // error Label switch within walkingSelect method
-
 
         if(firstNameErrLabel.isVisible() || lastNameErrLabel.isVisible() || ageErrorLabel.isVisible() ||
                 phoneErrLabel.isVisible() || emailErrorLabel.isVisible() || cityErrLabel.isVisible() ||
@@ -367,10 +364,6 @@ public class InHouseVolunteerScene extends Scene {
                     email, city, reason, animalType, availability, experience, location, date, nickName, walking));
             volunteerLV.refresh();
         }
-        //Todo: add controller to volunteer List
-        //Todo: ListView from volunteer list, from controller, CREATE!!!!!!!!!!
-        //volunteerListView.refresh();
-
     }
 
     private void reset() {
