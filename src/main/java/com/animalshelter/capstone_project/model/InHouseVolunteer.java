@@ -1,3 +1,44 @@
+/**
+ * Represents abstract InHouseVolunteer Class
+ *
+ * @author Jorge Garcia
+ *
+ **/
+
+/** UML CLASS DIAGRAM:
+ -----------------------------------------
+ InHouseVolunteer
+ -----------------------------------------
+ <data, i.e. variables>
+ - mLocation: String
+ - mDate: String
+ - mNickName: String
+ - mWalking: boolean
+ -----------------------------------------
+ <actions, i.e. methods>
+ + Full Constructor FosterVolunteer(firstName: String, lastName: String, age: int, formattedPhoneNumber: String,
+                             email: String, city: String, reason: String, animalType: String,
+                             availability: String, experience: String, startDate: String,
+                             location: String, nickName: String, walking: boolean)
+ +
+ + compareTo(o: Volunteer) : int
+ +
+ + getLocation() : String
+ + getDate() : String
+ + getNickName() : String
+ + isWalking(): boolean
+ +
+ + setLocation(startDate: String) : void
+ + setDate(endDate: String) : void
+ + setNickName(housing: String) : void
+ + setWalking(reliableTransportation: boolean) : void
+ +
+ + equals (o: Object): Boolean
+ + hashCode() : int
+ + toString(): String
+ --------------------------------------------------------------
+ */
+
 package com.animalshelter.capstone_project.model;
 
 import java.io.Serializable;
@@ -6,6 +47,7 @@ import java.util.Objects;
 
 public class InHouseVolunteer extends Volunteer implements Comparable<Volunteer>, Serializable {
 
+    /***** INSTANCE VARIABLES *****/
     private String mLocation;
     private String mDate;
     private String mNickName;
@@ -26,6 +68,7 @@ public class InHouseVolunteer extends Volunteer implements Comparable<Volunteer>
         return this.getClass().getCanonicalName().compareToIgnoreCase(o.getClass().getCanonicalName());
     }
 
+    /***** CONSTRUCTOR *****/
     public InHouseVolunteer(String firstName, String lastName, int age, String formattedPhoneNumber, String email,
                             String city, String reason, String animalType, String availability, String experience,
                             String location, String date, String nickName, boolean walking) {
@@ -36,34 +79,30 @@ public class InHouseVolunteer extends Volunteer implements Comparable<Volunteer>
         mWalking = walking;
     }
 
+    /***** ACCESSORS *****/
     public String getLocation() {
         return mLocation;
     }
-
-    public void setLocation(String location) {
-        mLocation = location;
-    }
-
     public String getDate() {
         return mDate;
     }
-
-    public void setDate(String date) {
-        mDate = date;
-    }
-
     public String getNickName() {
         return mNickName;
     }
-
-    public void setNickName(String nickName) {
-        mNickName = nickName;
-    }
-
     public boolean isWalking() {
         return mWalking;
     }
 
+    /***** MUTATORS *****/
+    public void setLocation(String location) {
+        mLocation = location;
+    }
+    public void setDate(String date) {
+        mDate = date;
+    }
+    public void setNickName(String nickName) {
+        mNickName = nickName;
+    }
     public void setWalking(boolean walking) {
         mWalking = walking;
     }
@@ -86,20 +125,20 @@ public class InHouseVolunteer extends Volunteer implements Comparable<Volunteer>
     @Override
     public String toString() {
         return "In House Volunteer [ " +
-                "Location='" + mLocation +
-                ", Date='" + mDate +
-                ", NickName='" + mNickName +
-                ", Walking=" + mWalking +
-                ", First Name = " + mFirstName +
-                ", Last Name = " + mLastName +
-                ", Age = " + mAge +
-                ", Phone Number = " + formattedPhoneNumber +
-                ", Email= " + mEmail +
-                ", City = " + mCity +
-                ", Reason = " + mReason +
-                ", Animal Preference = " + mAnimalType +
-                ", Availability = " + mAvailability +
-                ", Volunteer Experience =" + mExperience +
+                " Name: " + mFirstName +
+                " " + mLastName +
+                ", Age: " + mAge +
+                ", Phone Number: " + formattedPhoneNumber +
+                ", Email: " + mEmail +
+                ", City: " + mCity +
+                ", Reason: " + mReason +
+                ", Animal Preference: " + mAnimalType +
+                ", Availability: " + mAvailability +
+                ", Foster Experience: " + mExperience +
+                ", Location: " + mLocation +
+                ", Volunteer Date: " + mDate +
+                ", NickName: " + mNickName +
+                ", Walking " + mWalking +
                 " ]";
     }
 }

@@ -1,3 +1,44 @@
+/**
+ * Represents abstract FosterVolunteer Class
+ *
+ * @author Jorge Garcia
+ *
+ **/
+
+/** UML CLASS DIAGRAM:
+ -----------------------------------------
+ FosterVolunteer
+ -----------------------------------------
+ <data, i.e. variables>
+ - mStartDate: String
+ - mEndDate: String
+ - mHousing: String
+ - mReliableTransportation: boolean
+ -----------------------------------------
+ <actions, i.e. methods>
+ + Full Constructor FosterVolunteer(firstName: String, lastName: String, age: int, formattedPhoneNumber: String,
+                     email: String, city: String, reason: String, animalType: String,
+                     availability: String, experience: String, startDate: String,
+                     endDate: String, housing: String, reliableTransportation: boolean)
+ +
+ + compareTo(o: Volunteer) : int
+ +
+ + getStartDate() : String
+ + getEndDate() : String
+ + getHousing() : String
+ + isReliableTransportation(): boolean
+ +
+ + setStartDate(startDate: String) : void
+ + setEndDate(endDate: String) : void
+ + setHousing(housing: String) : void
+ + setReliableTransportation(reliableTransportation: boolean) : void
+ +
+ + equals (o: Object): Boolean
+ + hashCode() : int
+ + toString(): String
+ --------------------------------------------------------------
+ */
+
 package com.animalshelter.capstone_project.model;
 
 import javafx.scene.control.DatePicker;
@@ -14,28 +55,13 @@ import java.util.Objects;
 
 public class FosterVolunteer extends Volunteer implements Comparable<Volunteer>, Serializable {
 
-
+    /***** INSTANCE VARIABLES *****/
     private String mStartDate;
     private String mEndDate;
     private String mHousing;
     private boolean mReliableTransportation;
 
-    @Override
-    public int compareTo(Volunteer o) {
-        int superComp = super.compareTo(o);
-        if(superComp!=0)
-            return superComp;
-
-        if(o instanceof FosterVolunteer){
-            FosterVolunteer other = (FosterVolunteer) o;
-            int startDateComp = this.mStartDate.compareTo(other.mStartDate);
-            if(startDateComp!=0)
-                return startDateComp;
-        }
-
-        return this.getClass().getCanonicalName().compareToIgnoreCase(o.getClass().getCanonicalName());
-    }
-
+    /***** CONSTRUCTOR *****/
     public FosterVolunteer(String firstName, String lastName, int age, String formattedPhoneNumber, String email,
                            String city, String reason, String animalType, String availability, String experience,
                            String startDate, String endDate, String housing, boolean reliableTransportation) {
@@ -46,34 +72,34 @@ public class FosterVolunteer extends Volunteer implements Comparable<Volunteer>,
         mReliableTransportation = reliableTransportation;
     }
 
-    public String getStartDate() {
-        return mStartDate;
+    @Override
+    public int compareTo(Volunteer o) {
+        int superComp = super.compareTo(o);
+        if(superComp!=0)
+            return superComp;
+        if(o instanceof FosterVolunteer){
+            FosterVolunteer other = (FosterVolunteer) o;
+            int startDateComp = this.mStartDate.compareTo(other.mStartDate);
+            if(startDateComp!=0)
+                return startDateComp;
+        }
+        return this.getClass().getCanonicalName().compareToIgnoreCase(o.getClass().getCanonicalName());
     }
 
-    public void setStartDate(String startDate) {
-        mStartDate = startDate;
-    }
-
-    public String getEndDate() {
-        return mEndDate;
-    }
-
-    public void setEndDate(String endDate) {
-        mEndDate = endDate;
-    }
-
-    public String getHousing() {
-        return mHousing;
-    }
-
-    public void setHousing(String housing) {
-        mHousing = housing;
-    }
-
+    /***** ACCESSORS *****/
+    public String getStartDate() {return mStartDate;}
+    public String getEndDate() {return mEndDate;}
+    public String getHousing() {return mHousing;}
     public boolean isReliableTransportation() {
         return mReliableTransportation;
     }
 
+    /***** MUTATORS *****/
+    public void setStartDate(String startDate) {mStartDate = startDate;}
+    public void setEndDate(String endDate) {mEndDate = endDate;}
+    public void setHousing(String housing) {
+        mHousing = housing;
+    }
     public void setReliableTransportation(boolean reliableTransportation) {
         mReliableTransportation = reliableTransportation;
     }
@@ -95,20 +121,20 @@ public class FosterVolunteer extends Volunteer implements Comparable<Volunteer>,
     @Override
     public String toString() {
         return "Foster Volunteer [" +
-                " Start Date = " + mStartDate +
-                ", End Date = " + mEndDate +
-                ", Housing = " + mHousing +
-                ", Reliable Transportation = " + mReliableTransportation +
-                ", First Name = " + mFirstName +
-                ", Last Name = " + mLastName +
-                ", Age = " + mAge +
-                ", Phone Number = " + formattedPhoneNumber +
-                ", Email= " + mEmail +
-                ", City = " + mCity +
-                ", Reason = " + mReason +
-                ", Animal Preference = " + mAnimalType +
-                ", Availability = " + mAvailability +
-                ", Foster Experience =" + mExperience +
+                " Start Date: " + mStartDate +
+                ", End Date: " + mEndDate +
+                ", Housing: " + mHousing +
+                ", Reliable Transportation: " + mReliableTransportation +
+                ", Name: " + mFirstName +
+                " " + mLastName +
+                ", Age: " + mAge +
+                ", Phone Number: " + formattedPhoneNumber +
+                ", Email: " + mEmail +
+                ", City: " + mCity +
+                ", Reason: " + mReason +
+                ", Animal Preference: " + mAnimalType +
+                ", Availability: " + mAvailability +
+                ", Foster Experience: " + mExperience +
                 " ]";
     }
 }

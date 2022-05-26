@@ -11,7 +11,7 @@ public class VolunteerController {
 
     private VolunteerController (){}
 
-    public static VolunteerController getInstance(){
+    public static VolunteerController getFosterInstance(){
 
         if(theInstance == null) {
             theInstance = new VolunteerController();
